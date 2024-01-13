@@ -6,7 +6,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=description content>
 <meta name=author content>
-<title>Categories</title>
+<title>Hive Intro</title>
 <link rel=icon href=/images/hive.svg sizes=any type=image/svg+xml>
 <link rel=stylesheet href=https://hive.apache.org/css/hive-theme.css>
 <link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css>
@@ -112,12 +112,167 @@ ASF
 </menu>
 </header>
 <div class=content>
-<div class=container>
-<div class=section>
-<div class=content>
-<h1 class=title>Categories</h1>
-</div>
-</div>
+<div class=docs>
+<h2 id=what-is-hive>What is Hive?</h2>
+<p>Apache Hive is an application that abstracts Hadoop data so that it can be accessed using an SQL-like language called
+HiveQL. Using HiveQL, you can use a familiar procedural language to query large amounts of data on the grid as if you
+were working with a relational database.</p>
+<p>Hive offers a broad range of SQL semantics and integrates with both ODBC and JDBC interfaces, making it ideal for
+analyzing data.</p>
+<h2 id=why-hive>Why Hive?</h2>
+<p>Hive is one of the fastest growing products for many reasons:</p>
+<ul>
+<li><strong>Battle-Tested Standard</strong> - Hive is the SQL standard for Hadoop that has been around for many years.</li>
+<li><strong>Single Solution</strong> - Hive works across a broad spectrum of data volumes and allows you to load, store, read, analyze,
+and combine data.</li>
+<li><strong>Interoperability</strong> - HCatalog is a metastore that is part of Hive project. It allows Hive to work with Pig and
+HBase. Hive is also one of the few SQL solutions on Hadoop that has been widely certified by business intelligence
+(BI) vendors (10+ major vendors and growing).</li>
+<li><strong>Strong Support</strong> - Hive is a top-level project (TLP) with the Apache Software Foundation (ASF). The Hive community
+is comprised of top-notch engineers and architects from well-known IT companies.</li>
+<li><strong>Improving Performance</strong> - With each release, Hive&rsquo;s performance improves and is closing the gap with Pig. This
+performance increase is due to the changes in Hive and the underlying execution engine that Hive 0.13 and 0.14 run
+on Tez. There is even more reason to be optimistic for improved performance due to the
+<a href=http://hortonworks.com/labs/stinger/>Stinger initiative</a>, which is a broad, community-based effort to improve
+future versions of Hive.</li>
+</ul>
+<h2 id=accessing-hive>Accessing Hive</h2>
+<p>The diagram shows how a query made from the Hive CLI is transmitted to Hive, where it is translated into a MapReduce job
+that is run by Hadoop. Client applications use the ODBC/JDBC drivers to communicate with HiveServer2 to relay queries
+that like the queries from the CLI are converted into a MapReduce job that is executed on Hadoop.</p>
+<p><img src=./img/accessing_hive_services.png alt="Accessing Hive Diagram"></p>
+<h2 id=hive-vs-pig>Hive vs. Pig</h2>
+<p>The table below shows the difference between Hive and Pig, highlighting when and where each should be used, respective
+features, and available support.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Hive</th>
+<th>Pig</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Where to Use</td>
+<td>Ad-hoc analytics and reporting</td>
+<td>ETL and pipeline data processing</td>
+</tr>
+<tr>
+<td>Language</td>
+<td>SQL (declarative)</td>
+<td>PigLatin (procedural)</td>
+</tr>
+<tr>
+<td>Schema/Types</td>
+<td>Mandatory (implicit)</td>
+<td>Optional (explicit)</td>
+</tr>
+<tr>
+<td>Partitions</td>
+<td>Yes</td>
+<td>No, partition pruning with HCatalog</td>
+</tr>
+<tr>
+<td>Complex Processing</td>
+<td>Not a good fit for complex processing</td>
+<td>Well suited where multi-query works with thousands of lines of Pig script</td>
+</tr>
+<tr>
+<td>Client/Server</td>
+<td>Requires metastore server (HCatalog) and data registered with it</td>
+<td>Client only. Works with HCatalog metastore</td>
+</tr>
+<tr>
+<td>ODBC/JDBC</td>
+<td>Yes, through HiveServer2</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Tez Support</td>
+<td>Present and stable from Hive 0.13</td>
+<td>Tez support under development (Pig 0.14)</td>
+</tr>
+<tr>
+<td>ORC/Vectorization</td>
+<td>ORC and vectorization available</td>
+<td>ORC available with Pig 0.14, no vectorization yet</td>
+</tr>
+<tr>
+<td>Transactions</td>
+<td>Yes (coming soon)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Cost-Based Optimization</td>
+<td>Yes (coming soon)</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<h2 id=when-to-use-hive-vs-hbase>When to Use Hive vs. HBase</h2>
+<p>While it is reasonable to compare Pig and Hive, HBase and Hive serve very different purposes in the Hadoop ecosystem.
+The table below highlights the differences and when you would consider using each.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Hive</th>
+<th>HBase</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Where to Use</td>
+<td>- Data warehousing and analytics on top of Hadoop/HDFS- - Does not fit frequent and/or record-level updates (although support is getting added for ACID transactions)- Query and analyze large volumes of data</td>
+<td>- Distributed key-value store for persistence and random access on HDFS- Build to support ten&rsquo;s of thousands of reads/ writes per second at record level- Store and access values using keys</td>
+</tr>
+<tr>
+<td>Access</td>
+<td>Primarily through Hive SQL</td>
+<td>Java and REST APIs</td>
+</tr>
+<tr>
+<td>SQL</td>
+<td>Getting close to SQL standards</td>
+<td>Through Hive or Phoenix (SQL Skin on HBase) (not supported)</td>
+</tr>
+<tr>
+<td>Integration</td>
+<td>- Integrated with Pig through HCatalog- Integrated with Oozie through support for Hive action and HCatalog partition notifications</td>
+<td>- Integrated with Hive for SQL support- Integrated with Pig (HBaseStorage) and Oozie (credential support)</td>
+</tr>
+</tbody>
+</table>
+<h2 id=data-model>Data Model</h2>
+<p>Hive data is organized into databases, tables, partitions, and buckets. Those familiar with SQL will be familiar with
+databases that use a namespace to organize a group of tables and tables that have a schema defining column data.
+Partitions allow you to create virtual columns based on keys that determine how data is stored. Users can identify rows
+of data with partitions to run queries on instead of running the queries across an entire data set. Buckets allow you to
+split partitions, allowing even more focused queries Skewed tables, like partitions, allow you to focus queries on a
+subset of the data set by splitting the data into separate files so that certain files can be skipped when executing a
+query.</p>
+<p>The diagram below gives the general hierarchy of the data model and a general characteristic of each level. See
+<a href=https://cwiki.apache.org/confluence/display/Hive/Tutorial#Tutorial-DataUnits>Data Units</a> for more detailed
+information.</p>
+<p><img src=./img/data_model.png alt="Data Model in Hive"></p>
+<h2 id=hive-and-hcatalog>Hive and HCatalog</h2>
+<p><a href=https://cwiki.apache.org/confluence/display/Hive/HCatalog>HCatalog</a>, part of Hive project, is the central metastore
+for facilitating interoperability among various Hadoop tools. It not only acts as the table and storage management
+layer, so Pig, MapReduce, and Hive can share data, but also presents a relational view of the data in HDFS, abstracts
+where or in what format data is stored, and enables notifications of data availability.</p>
+<p><img src=./img/hive_hcatalog.png alt="Hive and HCatalog"></p>
+<h2 id=hiveserver2>HiveServer2</h2>
+<p><a href=https://cwiki.apache.org/confluence/display/Hive/Setting%20Up%20HiveServer2#SettingUpHiveServer2-HiveServer2>HiveServer2</a>
+is the JDBC/ODBC endpoint that Hive clients can use to communicate with Hive.</p>
+<p>It supports the following:</p>
+<ul>
+<li>concurrent clients</li>
+<li>secure clusters and encryption</li>
+<li>user/global/session configuration</li>
+<li>DoAs support allowing Hive queries to run as the requester</li>
+</ul>
+<p><img src=./img/hiveserver2.png alt=HiveServer2></p>
 </div>
 </div>
 <footer class="black-background static-bottom" style=padding:30px>

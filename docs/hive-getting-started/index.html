@@ -6,7 +6,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=description content>
 <meta name=author content>
-<title>Categories</title>
+<title>Hive Getting Started</title>
 <link rel=icon href=/images/hive.svg sizes=any type=image/svg+xml>
 <link rel=stylesheet href=https://hive.apache.org/css/hive-theme.css>
 <link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css>
@@ -112,12 +112,62 @@ ASF
 </menu>
 </header>
 <div class=content>
-<div class=container>
-<div class=section>
-<div class=content>
-<h1 class=title>Categories</h1>
-</div>
-</div>
+<div class=docs>
+<ul>
+<li>TOC
+{:toc}</li>
+</ul>
+<h2 id=overview>Overview</h2>
+<p>This post presents an overview of HDFS commands and a Hive command-line tutorial.</p>
+<h3 id=basic-hdfs-shell-commands>Basic HDFS Shell Commands</h3>
+<p>Before you start using the Hive CLI, you should be familiar with some basic <code>hdfs</code> commands that you&rsquo;ll need to use
+often when working on the grid. For a complete reference, see the
+<a href=http://archive.cloudera.com/cdh/3/hadoop/file_system_shell.html>File System Shell Guide</a></p>
+<h4 id=listing-hdfs-files>Listing HDFS Files</h4>
+<p>To get a stat for files</p>
+<pre><code>-bash-4.1$ hadoop fs -ls &lt;args&gt;
+</code></pre>
+<h4 id=copying-files>Copying Files</h4>
+<p>The following allows you to copy files from a source to a destination.</p>
+<pre><code>-bash-4.1$ hadoop fs -cp URI [URI …] &lt;dest&gt;
+</code></pre>
+<p>You can also copy files from local to HDFS or from HDFS to local</p>
+<pre><code>-bash-4.1$ hadoop fs -copyFromLocal &lt;localsrc&gt; URI 
+
+-bash-4.1$ hadoop fs -copyToLocal [-ignorecrc] [-crc] URI &lt;localdst&gt;
+</code></pre>
+<h4 id=making-directories>Making Directories</h4>
+<p>You can create HDFS directories by specifying paths or URIs</p>
+<pre><code>-bash-4.1$ hadoop fs -mkdir &lt;paths|URIs&gt; 
+</code></pre>
+<h4 id=moving-files-and-directories>Moving Files and Directories</h4>
+<p>You can use the following to move files from source to destination:</p>
+<pre><code>-bash-4.1$ hadoop fs -mv URI [URI …] &lt;dest&gt;
+</code></pre>
+<p>The above command allows multiple sources as well, in which case <code>&lt;dest></code> needs to be directory.
+Note, moving files across file systems is not permitted.</p>
+<p>As with copying files, you can move local files to HDFS and vice versa with the following:</p>
+<pre><code>-bash-4.1$ hadoop fs -moveToLocal [-crc] &lt;src&gt; &lt;dst&gt;
+-bash-4.1$ hadoop fs -moveFromLocal &lt;localsrc&gt; &lt;dst&gt;
+</code></pre>
+<h4 id=deleting-filesdirectories>Deleting Files/Directories</h4>
+<p>You can use the following to remove non-empty directories and files:</p>
+<pre><code>-bash-4.1$ hadoop fs -rm [-skipTrash] URI [URI …]
+</code></pre>
+<p>To recursively delete files, use the following:</p>
+<pre><code>-bash-4.1$ hadoop fs -rmr [-skipTrash] URI [URI …]
+</code></pre>
+<h4 id=viewing-file-content>Viewing File Content</h4>
+<p>Using the following command, you view the content by copying the source to <code>stdout</code>:</p>
+<pre><code>-bash-4.1$ hadoop fs -cat URI [URI …]
+</code></pre>
+<h3 id=security-model>Security Model</h3>
+<p>An organization contains sensitive data from many different properties. To preserve the integrity and confidentiality of
+that data, users of the organization should be restricted by ACLs that define access permissions. For example, people
+cannot create tables over the data that you do not have write permissions. For data that they do not have read
+permissions, they will not be able to view the data or its metadata.</p>
+<h3 id=next-steps>Next Steps</h3>
+<p>Read the <a href=https://cwiki.apache.org/confluence/display/Hive/LanguageManual>Hive Language Manual</a>.</p>
 </div>
 </div>
 <footer class="black-background static-bottom" style=padding:30px>

@@ -6,7 +6,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=description content>
 <meta name=author content>
-<title>Categories</title>
+<title>Hive Best Practice</title>
 <link rel=icon href=/images/hive.svg sizes=any type=image/svg+xml>
 <link rel=stylesheet href=https://hive.apache.org/css/hive-theme.css>
 <link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css>
@@ -112,12 +112,57 @@ ASF
 </menu>
 </header>
 <div class=content>
-<div class=container>
-<div class=section>
-<div class=content>
-<h1 class=title>Categories</h1>
-</div>
-</div>
+<div class=docs>
+<ul>
+<li>TOC
+{:toc}</li>
+</ul>
+<h2 id=data-producers>Data Producers</h2>
+<ul>
+<li>Always create tables in a database.</li>
+<li>When getting raw data from an initial loading or output of a MapReduce job, create an external table for staging that
+can be used to load an optimized table.</li>
+<li>Don&rsquo;t place data for external tables in the database directory.</li>
+<li>Carefully choose the format for storming.
+<ul>
+<li><strong>Text</strong> – slow to read and write, compressed files cannot be split, may lead to huge maps.</li>
+<li><strong>RCFile</strong> – columns stored as binary blobs, default blocks of 4 MB, only the needed columns read.</li>
+<li><strong>Avro IDL</strong> – full row read by consumers of data.</li>
+<li><strong>ORC</strong> – uses type specific encoders, stores statistics, index for skipping rows, and larger blocks (small reads).</li>
+</ul>
+</li>
+<li>Limit the number of partition: 1000 partitions is much faster than 10000. Nested partitions are almost always wrong
+(pressure on NameNode and HCatalog).</li>
+<li>Compress your data.</li>
+<li>Heavily comment your table definition and schema elements that allows the use of a data discovery tool.</li>
+<li>Append (rather than insert) new columns.</li>
+<li>Mark tables with skewed columns as skewed for efficient querying.</li>
+<li>Use <code>SORT BY</code> while storing data for better compression with ORCFile.</li>
+<li>Lay out related tables the same way, partition, and sort order.</li>
+<li>Partition data along natural query boundaries (e.g., date).</li>
+<li>Minimize data shuffle by collocating the most commonly joined data.</li>
+<li>Use RCFile with compression to save storage and to improve performance</li>
+</ul>
+<h2 id=data-consumers>Data Consumers</h2>
+<ul>
+<li>Use partition filter on partitioned tables.</li>
+<li>Understand the <a href=https://cwiki.apache.org/confluence/display/Hive/LanguageManual+SortBy#LanguageManualSortBy-DifferencebetweenSortByandOrderBy>differences between SORT BY and ORDER BY</a>.</li>
+<li>Use skew join for skewed data.</li>
+<li>Avoid <code>CROSS</code> joins.</li>
+<li>Filter out <code>NULL</code> values for inner joins.</li>
+<li>Use default parallel execution of Hive.</li>
+<li><strong>UDFs</strong> - you need to figure out if something special needs to be done for distributable UDAFs.</li>
+<li>Add frequently used commands in <code>$HOME/.hiverc</code>. For example: <code>SET mapred.job.queue.name=unfunded</code></li>
+<li>Use <code>EXPLAIN</code> to analyze a query (before executing it).</li>
+<li>Verify the query plan to ensure a single scan through largest table.</li>
+<li>Check the query plan to ensure partition pruning is happening.</li>
+<li>Use at least one <code>ON</code> clause in every <code>JOIN</code>.</li>
+<li>Tune <code>io.sort.mb</code> to avoid spilling.</li>
+<li>Tune <code>mapred.max.split.size</code> and <code>mapred.min.split.size</code> to ensure a single mapper wave.</li>
+<li>Tune <code>mapred.reduce.tasks</code> to an appropriate value based on the map output.</li>
+<li>Give extra memory for map joins like broadcast joins.</li>
+<li>Tune ORC parameters for better read performance.</li>
+</ul>
 </div>
 </div>
 <footer class="black-background static-bottom" style=padding:30px>

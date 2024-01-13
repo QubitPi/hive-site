@@ -6,7 +6,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=description content>
 <meta name=author content>
-<title>Categories</title>
+<title>Business Intelligence (BI) / Analytics</title>
 <link rel=icon href=/images/hive.svg sizes=any type=image/svg+xml>
 <link rel=stylesheet href=https://hive.apache.org/css/hive-theme.css>
 <link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css>
@@ -112,12 +112,59 @@ ASF
 </menu>
 </header>
 <div class=content>
-<div class=container>
-<div class=section>
-<div class=content>
-<h1 class=title>Categories</h1>
-</div>
-</div>
+<div class=docs>
+<ul>
+<li>TOC
+{:toc}</li>
+</ul>
+<h2 id=overview>Overview</h2>
+<p>You can use business intelligence (BI) and data analytics tools such as <a href=http://www.tableausoftware.com/>Tableau</a> and
+<a href=https://www.microstrategy.com/us/>MicroStrategy</a> with data on Hadoop. These tools access grid data with Hive through
+the
+<a href=http://hortonworks.com/wp-content/uploads/2013/04/Hortonworks-Hive-ODBC-Driver-User-Guide.pdf>Hortonworks Hive ODBC driver</a>.</p>
+<p>For those who are not familiar with Tableau and MicroStrategy, please read the next section that discusses the
+differences and strengths of each so you can use the tool that best meets your needs. If you know which tool is right
+for you, continue to :ref:<code>Visualizing Data and Ad Hoc Reporting With Tableau &lt;getting_started-tableau></code> or
+:ref:<code>Standard Reporting With MicroStrategy &lt;gs_bi-ms></code>.</p>
+<h3 id=hdfs-stack-for-bi>HDFS Stack for BI</h3>
+<p>The diagram below shows how client software such as MicroStrategy and Tableau use the ODBC driver to communicate with
+HiveServer2, which in turn, forwards queries to Hive that ultimately are executed as MapReduce functions on Hadoop.</p>
+<p>![BI on the Grid]({{ &ldquo;/assets/img/bi_grid.png&rdquo; | relative_url}})</p>
+<h2 id=microstrategy-versus-tableau>MicroStrategy Versus Tableau</h2>
+<p>The general rule is to use MicroStrategy for standardized reporting or Tableau for visualizing data.</p>
+<h3 id=microstrategy>MicroStrategy</h3>
+<h4 id=strengths>Strengths</h4>
+<ul>
+<li>Great for reporting that has stabilized (not changing much over time).</li>
+<li>Drill-down/through is great for facilitating an interactive discussion with business leaders.</li>
+<li>Report-sharing helps keep the data on the back-end, reducing the emailing of large Excel files.</li>
+<li>Allows for programmatic usage through a Web service API.</li>
+<li>Supports standard reporting.</li>
+<li>Provides access through a Web interface.</li>
+<li>Developer suite for generating reports.</li>
+</ul>
+<h4 id=weaknesses>Weaknesses</h4>
+<ul>
+<li>Requires greater technical knowledge, and the process of creating a new view is clumsy and time-consuming.</li>
+<li>Provides no capability of combining HDFS data with data outside the HDFS.</li>
+<li>Learning to use MicroStrategy is more difficult.</li>
+</ul>
+<h3 id=tableau>Tableau</h3>
+<h4 id=strengths-1>Strengths</h4>
+<ul>
+<li>Lets you quickly make sense of millions of rows of data through visualization.</li>
+<li>Does an excellent job of recognizing facts and dimensions in de-normalized data files (say CSV or Excel) as well as
+connecting to larger databases.</li>
+<li>The learning curve is low, especially if you are comfortable with Excel Pivot Tables or something similar.</li>
+<li>Allows for ad hoc reporting.</li>
+</ul>
+<h4 id=weaknesses-1>Weaknesses</h4>
+<ul>
+<li>For broader enterprise needs, such as data security and segmentation, heavy duty report customization, or data
+transformation, Tableau is a less comprehensive tool than MicroStrategy.</li>
+<li>The license for using Tableau is expensive.</li>
+<li>You can only use Tableau through the desktop application.</li>
+</ul>
 </div>
 </div>
 <footer class="black-background static-bottom" style=padding:30px>

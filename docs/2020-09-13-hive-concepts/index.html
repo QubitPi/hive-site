@@ -6,7 +6,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=description content>
 <meta name=author content>
-<title>Categories</title>
+<title>Hive Concepts</title>
 <link rel=icon href=/images/hive.svg sizes=any type=image/svg+xml>
 <link rel=stylesheet href=https://hive.apache.org/css/hive-theme.css>
 <link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css>
@@ -112,12 +112,62 @@ ASF
 </menu>
 </header>
 <div class=content>
-<div class=container>
-<div class=section>
-<div class=content>
-<h1 class=title>Categories</h1>
-</div>
-</div>
+<div class=docs>
+<ul>
+<li>TOC
+{:toc}</li>
+</ul>
+<h2 id=hive-data-model>Hive Data Model</h2>
+<p>Data in Hive is organized into:</p>
+<ul>
+<li><strong>Tables</strong> - These are analogous to Tables in Relational Databases. Tables can be filtered, projected, joined and
+unioned. Additionally <strong>all the data of a table is stored in a directory in HDFS</strong>. Hive also supports the notion of
+external tables wherein a table can be created on prexisting files or directories in HDFS by providing the appropriate
+location to the table creation DDL. The rows in a table are organized into typed columns similar to Relational
+Databases.</li>
+<li><strong>Partitions</strong> - Each Table can have one or more partition keys which determine how the data is stored, for example a
+table <code>T</code> with a date partition column <code>ds</code> had files with data for a particular date stored in the
+<code>&lt;table location>/ds=&lt;date></code> <strong>directory</strong> in HDFS. Partitions allow the system to prune data to be inspected based on
+query predicates, for example a query that is interested in rows from <code>T</code> that satisfy the predicate
+<code>T.ds = '2008-09-01'</code> would only have to look at files in <code>&lt;table location>/ds=2008-09-01/</code> directory in HDFS.</li>
+<li><strong>Buckets</strong> - Data in each partition may in turn be divided into Buckets based on the hash of a column in the table.
+Each bucket is stored as a <strong>file</strong> in the partition directory. Bucketing allows the system to efficiently evaluate
+queries that depend on a sample of data (these are queries that use the <code>SAMPLE</code> clause on the table).</li>
+</ul>
+<h2 id=partition>Partition</h2>
+<p>Each Table can have one or more partition Keys which determines how the data is stored. Partitions - apart from being
+storage units - also allow the user to efficiently identify the rows that satisfy a specified criteria; for example, a
+date_partition of type STRING and country_partition of type STRING. Each unique value of the partition keys defines a
+partition of the Table. For example, all &ldquo;US&rdquo; data from &ldquo;2009-12-23&rdquo; is a partition of the page_views table. Therefore,
+if you run analysis on only the &ldquo;US&rdquo; data for 2009-12-23, you can run that query only on the relevant partition of the
+table, thereby speeding up the analysis significantly. Note however, that just because a partition is named 2009-12-23
+does not mean that it contains all or only data from that date; partitions are named after dates for convenience; it is
+the user&rsquo;s job to guarantee the relationship between partition name and data content! Partition columns are virtual
+columns, they are not part of the data itself but are derived on load.</p>
+<h3 id=how-to-partitioned-tables>How to Partitioned Tables</h3>
+<p>Partitioned tables can be created using the <code>PARTITIONED BY</code> clause. A table can have one or more partition columns and
+a separate data directory is created for each distinct value combination in the partition columns. Further, tables or
+partitions can be bucketed using <code>CLUSTERED BY</code> columns, and data can be sorted within that bucket via <code>SORT BY</code>
+columns. This can improve performance on certain kinds of queries.</p>
+<p>If, when creating a partitioned table, you get this error: &ldquo;FAILED: Error in semantic analysis: Column repeated in
+partitioning columns,&rdquo; it means you are trying to include the partitioned column in the data of the table itself. You
+probably really do have the column defined. However, the partition you create makes a pseudo-column on which you can
+query, so you must rename your table column to something else (that users should not query on!).</p>
+<p>For example, suppose your original unpartitioned table had three columns: id, date, and name:</p>
+<pre><code>id     int,
+date   date,
+name   varchar
+</code></pre>
+<p>Now you want to partition on date. Your Hive definition could use &ldquo;dtDontQuery&rdquo; as a column name so that &ldquo;date&rdquo; can be
+used for partitioning (and querying).</p>
+<pre><code>create table table_name (
+    id                int,
+    dtDontQuery       string,
+    name              string
+) partitioned by (date string)
+</code></pre>
+<p>Now your users will still query on &ldquo;<code>where date = '...'</code>&rdquo; but the second column <code>dtDontQuery</code> will hold the original
+values.</p>
 </div>
 </div>
 <footer class="black-background static-bottom" style=padding:30px>

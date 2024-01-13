@@ -1,0 +1,330 @@
+<!doctype html><html><!doctype html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content>
+<meta name=author content>
+<title>Hive Data Formats</title>
+<link rel=icon href=/images/hive.svg sizes=any type=image/svg+xml>
+<link rel=stylesheet href=https://hive.apache.org/css/hive-theme.css>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css>
+<link href=https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css rel=stylesheet integrity=sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC crossorigin=anonymous>
+<link rel=stylesheet href=https://hive.apache.org/css/termynal.css>
+<link rel=apple-touch-icon sizes=180x180 href=https://hive.apache.org/images/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=https://hive.apache.org/images/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=https://hive.apache.org/images/favicon-16x16.png>
+<link rel=manifest href=https://hive.apache.org/images/site.webmanifest>
+<link rel=mask-icon href=https://hive.apache.org/images/safari-pinned-tab.svg color=#5bbad5>
+<meta name=msapplication-TileColor content="#da532c">
+<meta name=theme-color content="#ffffff">
+</head>
+<body>
+<body>
+<header>
+<menu style=background:#000;margin:0>
+<nav class="navbar navbar-expand-lg navbar-dark bg-black">
+<div class=container-fluid>
+<a href=https://hive.apache.org> <img src=https://hive.apache.org/images/hive.svg width=60 height=35 alt="Apache Software Foundation"></a>
+<a class="header-text navbar-brand" href=https://hive.apache.org>Apache Hive</a>
+<button class=navbar-toggler type=button data-bs-toggle=collapse data-bs-target=#navbarSupportedContent aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation">
+<span class=navbar-toggler-icon></span>
+</button>
+<div class="collapse navbar-collapse" id=navbarSupportedContent>
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+<li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" href=/Release id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>
+Release
+</a>
+<ul class=dropdown-menu aria-labelledby=navbarDropdown>
+<li><a class=dropdown-item href=https://hive.apache.org/general/downloads>Release</a></li>
+<li><a class=dropdown-item href=https://hive.apache.org/general/hcatalogdownloads/>Hcatalog</a></li>
+</ul>
+</li>
+<li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" href=/Document id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>
+Documentation
+</a>
+<ul class=dropdown-menu aria-labelledby=navbarDropdown>
+<li><a class=dropdown-item href=https://hive.apache.org>Introduction</a></li>
+<li><a class=dropdown-item href=https://hive.apache.org/docs/javadocs/>Javadocs</a></li>
+<li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/LanguageManual>Language Manual</a></li>
+<li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/>Wiki</a></li>
+</ul>
+</li>
+<li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" href=/general id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>
+General
+</a>
+<ul class=dropdown-menu aria-labelledby=navbarDropdown>
+<li><a class=dropdown-item href=https://www.apache.org/licenses/LICENSE-2.0.html>License</a></li>
+<li><a class=dropdown-item href=https://hive.apache.org/general/privacypolicy/>Privacy Policy</a></li>
+</ul>
+</li>
+<li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" href=# id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>
+Development
+</a>
+<ul class=dropdown-menu aria-labelledby=navbarDropdown>
+<li><a class=dropdown-item href=https://hive.apache.org/developement/gettingstarted/>Getting Started</a></li>
+<li><a class=dropdown-item href=https://hive.apache.org/developement/quickstart/>Quickstart with Docker</a></li>
+<li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/DesignDocs>Design Docs</a></li>
+<li><a class=dropdown-item href=https://issues.apache.org/jira/projects/HIVE/issues>Hive JIRA</a></li>
+<li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/HiveDeveloperFAQ>Hive Developer FAQ</a></li>
+<li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/Hive+PreCommit+Patch+Testing>Precommit Patch Testing</a></li>
+<li><a class=dropdown-item href=https://hive.apache.org/developement/versioncontrol/>Version Control</a></li>
+</ul>
+</li>
+<li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" href=# id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>
+Community
+</a>
+<ul class=dropdown-menu aria-labelledby=navbarDropdown>
+<li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/BecomingACommitter>Becoming A Committer</a></li>
+<li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/HowToContribute>How To Contribute</a></li>
+<li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/Home#Home-ResourcesforContributors>Resources for Contributors</a></li>
+<li><a class=dropdown-item href=https://hive.apache.org/community/mailinglists/>Mailing Lists</a></li>
+<li><a class=dropdown-item href=https://hive.apache.org/community/issuetracking/>Issue Tracking</a></li>
+<li><a class=dropdown-item href=https://hive.apache.org/community/people/>People</a></li>
+<li>
+<hr class=dropdown-divider>
+</li>
+<li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/Bylaws>By Laws</a></li>
+<li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/HowToRelease>How To Release</a></li>
+</ul>
+</li>
+<li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" href=# id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>
+ASF
+</a>
+<ul class=dropdown-menu aria-labelledby=navbarDropdown>
+<li><a class=dropdown-item href=https://www.apache.org/foundation/contributing.html>Donations</a></li>
+<li><a class=dropdown-item href=https://www.apache.org/foundation/sponsorship.html>Sponsorship</a></li>
+<li><a class=dropdown-item href=https://www.apache.org/foundation/thanks.html>Thanks</a></li>
+<li><a class=dropdown-item href=https://www.apache.org/>Website</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+</menu>
+</header>
+<div class=content>
+<div class=docs>
+<ul>
+<li>TOC
+{:toc}</li>
+</ul>
+<h2 id=supported-file-formats>Supported File Formats</h2>
+<p>The following are the some file formats supported:</p>
+<ul>
+<li>Delimited text</li>
+<li><a href=http://en.wikipedia.org/wiki/RCFile>Row Columnar file (RCFile)</a></li>
+<li><a href=https://cwiki.apache.org/confluence/display/Hive/LanguageManual%20ORC#LanguageManualORC-ORCFiles>`Optimized Row Columnar (ORC) file</a> (Hive 0.11 and beyond)</li>
+<li><a href=http://avro.apache.org/docs/1.7.5/idl.html>Avro IDL</a> (end of Q2'14)</li>
+</ul>
+<p>Hive also allows mixed formats:</p>
+<ul>
+<li>Ingest data in write optimized format such as delimited text</li>
+<li>Run a batch (nightly) job to convert to read-optimized ORCFile</li>
+</ul>
+<h2 id=supported-compression-formats>Supported Compression Formats</h2>
+<p>The compression format is defined in <code>io.compression.codecs</code>.</p>
+<p>The following are the supported formats:</p>
+<ul>
+<li><strong>bzip2</strong> - <code>org.apache.hadoop.io.compress.BZip2Codec</code></li>
+<li><strong>LZO</strong> - <code>com.hadoop.compression.lzo.LzoCodec</code></li>
+<li><strong>zlib</strong> - <code>org.apache.hadoop.io.compress.DefaultCodec</code></li>
+</ul>
+<blockquote>
+<p>Note: The compression codec Snappy (<code>org.apache.hadoop.io.compress.SnappyCodec</code>) is currently not supported.</p>
+</blockquote>
+<h3 id=setting-compression>Setting Compression</h3>
+<p>To set the intermediate compressions:</p>
+<pre><code>SET hive.exec.compress.intermediate = true;
+SET mapreduce.map.output.compress.codec = &lt;...&gt;;
+</code></pre>
+<p>For output compressions:</p>
+<pre><code>SET hive.exec.compress.output = true;
+SET mapreduce.output.fileoutputformat.compress.codec = &lt;...&gt;;
+</code></pre>
+<h2 id=text-files>Text Files</h2>
+<p>You can load data from text files or store data into text files that are delimited.</p>
+<p>When you create a table, you specify the row delimiters and that the table should be stored as a text file. In the
+example below, you create a table from a text file that is delimited by a comma:</p>
+<pre><code>CREATE TABLE u_data (
+    id INT,
+    fname STRING,
+    lname STRING,
+    gender STRING)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+STORED AS TEXTFILE;
+</code></pre>
+<p>Given the comma-delimited data in the CSV file <code>actors_input.csv</code> below:</p>
+<pre><code>1, Kevin, Bacon, male
+2, Billy, Crystal, male
+3, Sandra, Bullock, female
+4, Demi, Moore, female
+</code></pre>
+<p>You could load into the table <code>u_data</code> with the following:</p>
+<pre><code>LOAD DATA LOCAL INPATH './actors_input.csv'
+OVERWRITE INTO TABLE u_data; 
+</code></pre>
+<p>For text files that are not delimited, you can use regular expressions with <code>SERDEPROPERTIES</code> and the Java class
+<code>org.apache.hadoop.hive.serde2.RegexSerDe</code>. A typical use case for using regular expressions would be to load data
+from a Web log.</p>
+<p>The example below parses information from an Apache Web log so that the text file can be loaded into a Hive table:</p>
+<pre><code>CREATE TABLE serde_regex(
+    host STRING,
+    identity STRING,
+    user STRING,
+    time STRING,
+    request STRING,
+    status STRING,
+    size STRING,
+    referer STRING,
+    agent STRING)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.contrib.serde2.RegexSerDe'
+WITH SERDEPROPERTIES (
+    &quot;input.regex&quot; = &quot;([^ ]*) ([^ ]*) ([^ ]*) (-|\\[[^\\]]*\\]) ([^ \&quot;]*|\&quot;[^\&quot;]*\&quot;) (-|[0-9]*) (-|[0-9]*)(?: ([^ \&quot;]*|\&quot;[^\&quot;]*\&quot;) ([^ \&quot;]*|\&quot;[^\&quot;]*\&quot;))?&quot;,
+    &quot;output.format.string&quot; = &quot;%1$s %2$s %3$s %4$s %5$s %6$s %7$s %8$s %9$s&quot;
+)
+STORED AS TEXTFILE;
+</code></pre>
+<h2 id=optimized-row-columnar-orc-file>Optimized Row Columnar (ORC) File</h2>
+<h3 id=what-is-orc>What is ORC?</h3>
+<p><a href=https://cwiki.apache.org/confluence/display/Hive/LanguageManual%20ORC#LanguageManualORC-ORCFiles>ORC</a> is a file
+format first introduced in Hive 0.11 and designed specifically to improve the efficiency of storing Hive data. Using ORC
+files, Hive&rsquo;s performance improves when reading, writing, and processing data.</p>
+<h3 id=file-structure>File Structure</h3>
+<p>ORC files are structured as groups of row data and auxillary information known collectively as stripes. Each stripe
+contains index data, row data, and a footer. The default stripe size is 250 MB. The large size of stripes allow Hive to
+efficiently read data from HDFS.</p>
+<p>At the end of the ORC file is a postscript holding compression parameters and the size of the compressed footer.</p>
+<p>The following diagram shows the basic structure. See the description of the <strong>index</strong>, <strong>row data</strong>, and <strong>footer</strong>
+below the diagram.</p>
+<p>![ORC File Layout]({{ &ldquo;/assets/img/orc_file_layout.png&rdquo; | relative_url}})</p>
+<ul>
+<li><strong>index</strong> - includes the minimum and maximum values for each column and the row positions within each column. (A bit
+field or bloom filter could also be included.) The index entries provide offsets that enable seeking to the right
+compression block and byte within a decompressed block. Also, indexes are only used for the selection of stripes and
+row groups and <strong>not</strong> for answering queries.</li>
+<li><strong>data rows</strong> - composed of multiple streams per column and used for table scans. The integer columns are serialized
+using run-length encoding, and the string columns are serialized using dictionary for column values, and the same run
+length encoding.</li>
+<li><strong>footer</strong> - contains a directory of stream locations and the encoding for each column. The footer is also used to
+find the requested column&rsquo;s data streams and adjacent stream reads are merged.</li>
+</ul>
+<h3 id=how-to-use-orc>How to Use ORC</h3>
+<p>To set the default file format as ORCFile, use the <code>SET</code> command:</p>
+<pre><code>SET hive.default.fileformat   = orc
+SET hive.exec.orc.memory.pool = 0.50 (ORC writer is allowed 50% of JVM heap size by default)
+
+ROW FORMAT SERDE 'org.apache.hadoop.hive.ql.io.orc.OrcSerde'
+INPUTFORMAT      'org.apache.hadoop.hive.ql.io.orc.OrcInputFormat' 
+OUTPUTFORMAT     'org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat';
+</code></pre>
+<p>You can also specity that Hive store data as an ORC file when creating a table:</p>
+<pre><code>CREATE TABLE addresses ( 
+name 	string, 
+street 	string, 
+city 	string, 
+state 	string, 
+zip 	int 
+) 
+STORED AS orc TBLPROPERTIES (&quot;orc.compress&quot;= &quot;ZLIB&quot;);
+LOCATION '/users/sumeetsi/orcfile';
+</code></pre>
+<p>Or, alter a table so that it uses ORCFile:</p>
+<pre><code>ALTER TABLE ... [PARTITION partition_spec] SET FILEFORMAT orc
+</code></pre>
+<h3 id=orc-file-configurations>ORC File Configurations</h3>
+<p>There are a number of configurations that you can set in <code>TBLEPROPERTIES</code>. The table below lists the keys,
+the defaults, and a short description.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>orc.compress</code></td>
+<td>ZLIB</td>
+<td>high-level compression (one of NONE, ZLIB, Snappy–needs evaluation)</td>
+</tr>
+<tr>
+<td><code>orc.compress.size</code></td>
+<td>262144 (256 KB)</td>
+<td>number of bytes in each compression chunk</td>
+</tr>
+<tr>
+<td><code>orc.stripe.size</code></td>
+<td>67108864 (64 MB)</td>
+<td>number of bytes in each stripe. Each ORC stripe is processed in one map task (try 32 MB to cut down on disk I/O)</td>
+</tr>
+<tr>
+<td><code>orc.row.index.stride</code></td>
+<td>10000</td>
+<td>number of rows between index entries (must be >= 1,000). A larger stride-size increases the probability of not being able to skip the stride, for a predicate</td>
+</tr>
+<tr>
+<td><code>orc.create.index</code></td>
+<td>true</td>
+<td>whether to create row indexes. This is for predicate push-down (bloom-filters). If data is frequently accessed/filtered on a certain column, then sorting on the column and using index-filters makes column filters work faster</td>
+</tr>
+</tbody>
+</table>
+<p>To set a ORC File configuration, you use <code>TBLPROPERTIES</code> when creating or altering a table as shown below, which sets
+the compression format to <code>bzip2</code>.</p>
+<pre><code>create table Addresses (
+    name string,
+    street string,
+    city string,
+    state string,
+    zip int
+) stored as orc tblproperties (&quot;orc.compress&quot;=&quot;bzip2&quot;);
+</code></pre>
+</div>
+</div>
+<footer class="black-background static-bottom" style=padding:30px>
+<div class=row>
+<div class=col-3>
+<a href=https://www.apache.org/>
+<img src=https://hive.apache.org/images/asf_logo.png width=270 height=100 alt="Apache Software Foundation"></a>
+</a>
+</div>
+<div class=col-9>
+<p class=footer-text>Apache is a non-profit organization helping open-source
+software projects released under the Apache
+<a href=https://www.apache.org/licenses/>license</a>
+and managed with
+<a href=https://www.apache.org/foundation/how-it-works.html>
+open governance</a> and
+<a href=https://privacy.apache.org/policies/privacy-policy-public.html>
+privacy policy</a>. See upcoming
+<a href=https://www.apache.org/events/current-event>Apache Events</a>.
+If you discover any
+<a href=https://www.apache.org/security/>security</a> vulnerabilities, please
+report them privately. Finally,
+<a href=https://www.apache.org/foundation/sponsorship.html>thanks
+</a> to the sponsors who
+<a href=https://www.apache.org/foundation/contributing.html>
+donate</a> to the Apache Foundation.
+</p>
+</div>
+</div>
+<div class="copyright row">
+<a href=https://hive.apache.org style=color:grey>
+The contents of this website are © 2023 Apache Software Foundation under the terms of the Apache License v2. Apache Hive and its logo are trademarks of the Apache Software Foundation.
+</a>
+</div>
+</footer>
+<script src=https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js integrity=sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM crossorigin=anonymous></script>
+</body>
+</html>
