@@ -140,7 +140,7 @@ future versions of Hive.</li>
 <p>The diagram shows how a query made from the Hive CLI is transmitted to Hive, where it is translated into a MapReduce job
 that is run by Hadoop. Client applications use the ODBC/JDBC drivers to communicate with HiveServer2 to relay queries
 that like the queries from the CLI are converted into a MapReduce job that is executed on Hadoop.</p>
-<p><img src=images/accessing_hive_services.png alt="Accessing Hive Diagram"></p>
+<p><img src=../../images/accessing_hive_services.png alt="Accessing Hive Diagram"></p>
 <h2 id=hive-vs-pig>Hive vs. Pig</h2>
 <p>The table below shows the difference between Hive and Pig, highlighting when and where each should be used, respective
 features, and available support.</p>
@@ -255,13 +255,13 @@ query.</p>
 <p>The diagram below gives the general hierarchy of the data model and a general characteristic of each level. See
 <a href=https://cwiki.apache.org/confluence/display/Hive/Tutorial#Tutorial-DataUnits>Data Units</a> for more detailed
 information.</p>
-<p><img src=images/data_model.png alt="Data Model in Hive"></p>
+<p><img src=../../images/data_model.png alt="Data Model in Hive"></p>
 <h2 id=hive-and-hcatalog>Hive and HCatalog</h2>
 <p><a href=https://cwiki.apache.org/confluence/display/Hive/HCatalog>HCatalog</a>, part of Hive project, is the central metastore
 for facilitating interoperability among various Hadoop tools. It not only acts as the table and storage management
 layer, so Pig, MapReduce, and Hive can share data, but also presents a relational view of the data in HDFS, abstracts
 where or in what format data is stored, and enables notifications of data availability.</p>
-<p><img src=images/hive_hcatalog.png alt="Hive and HCatalog"></p>
+<p><img src=../../images/hive_hcatalog.png alt="Hive and HCatalog"></p>
 <h2 id=hiveserver2>HiveServer2</h2>
 <p><a href=https://cwiki.apache.org/confluence/display/Hive/Setting%20Up%20HiveServer2#SettingUpHiveServer2-HiveServer2>HiveServer2</a>
 is the JDBC/ODBC endpoint that Hive clients can use to communicate with Hive.</p>
@@ -272,7 +272,7 @@ is the JDBC/ODBC endpoint that Hive clients can use to communicate with Hive.</p
 <li>user/global/session configuration</li>
 <li>DoAs support allowing Hive queries to run as the requester</li>
 </ul>
-<p><img src=images/hiveserver2.png alt=HiveServer2></p>
+<p><img src=../../images/hiveserver2.png alt=HiveServer2></p>
 </div>
 </div>
 <footer class="black-background static-bottom" style=padding:30px>
