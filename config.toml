@@ -1,4 +1,4 @@
-baseURL = 'https://hive.apache.org'
+baseURL = 'https://qubitpi.github.io/hive-site'
 languageCode = 'en-us'
 title = 'Hive Site'
 theme = 'hive'
@@ -28,6 +28,12 @@ theme = 'hive'
 [params.navbar]
     release = "/general/downloads"
     hcatalog = "/general/hcatalogdownloads/"
+    intro = "/docs/intro/"
+    concepts = "/docs/concepts/"
+    programming = "/docs/programming/"
+    dataFormats = "/docs/data-formats/"
+    bestPractices = "/docs/best-practices/"
+    bi = "/docs/bi/"
     javaDocs = "/docs/javadocs/"
     languageManual = "https://cwiki.apache.org/confluence/display/Hive/LanguageManual"
     wiki = "https://cwiki.apache.org/confluence/display/Hive/"
