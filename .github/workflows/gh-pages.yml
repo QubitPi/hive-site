@@ -20,9 +20,10 @@
 name: GitHub Pages
 
 on:
+  pull_request:
   push:
     branches:
-      - main  # Set a branch to deploy
+      - master  # Set a branch to deploy
 
 jobs:
   deploy:
@@ -49,6 +50,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
-          publish_branch: asf-site
-          destination_dir: ./
-          keep_files: true
+          enable_jekyll: false
+          user_name: QubitPi
+          user_email: jack20220723@gmail.com
