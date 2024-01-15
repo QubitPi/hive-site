@@ -6,7 +6,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=description content>
 <meta name=author content>
-<title>Hive Best Practice</title>
+<title>Hive Getting Started</title>
 <link rel=icon href=/images/hive.svg sizes=any type=image/svg+xml>
 <link rel=stylesheet href=https://qubitpi.github.io/hive-site/css/hive-theme.css>
 <link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css>
@@ -47,7 +47,13 @@ Release
 Documentation
 </a>
 <ul class=dropdown-menu aria-labelledby=navbarDropdown>
-<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/hive-intro/>Introduction</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/intro/>Introduction</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/developement/gettingstarted/>Getting Started</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/concepts/>Concepts</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/programming/>Programming</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/data-formats/>Data Formats</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/best-practices/>Best Practices</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/bi/>BI</a></li>
 <li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/javadocs/>Javadocs</a></li>
 <li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/LanguageManual>Language Manual</a></li>
 <li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/>Wiki</a></li>
@@ -113,56 +119,47 @@ ASF
 </header>
 <div class=content>
 <div class=docs>
-<ul>
-<li>TOC
-{:toc}</li>
-</ul>
-<h2 id=data-producers>Data Producers</h2>
-<ul>
-<li>Always create tables in a database.</li>
-<li>When getting raw data from an initial loading or output of a MapReduce job, create an external table for staging that
-can be used to load an optimized table.</li>
-<li>Don&rsquo;t place data for external tables in the database directory.</li>
-<li>Carefully choose the format for storming.
-<ul>
-<li><strong>Text</strong> – slow to read and write, compressed files cannot be split, may lead to huge maps.</li>
-<li><strong>RCFile</strong> – columns stored as binary blobs, default blocks of 4 MB, only the needed columns read.</li>
-<li><strong>Avro IDL</strong> – full row read by consumers of data.</li>
-<li><strong>ORC</strong> – uses type specific encoders, stores statistics, index for skipping rows, and larger blocks (small reads).</li>
-</ul>
-</li>
-<li>Limit the number of partition: 1000 partitions is much faster than 10000. Nested partitions are almost always wrong
-(pressure on NameNode and HCatalog).</li>
-<li>Compress your data.</li>
-<li>Heavily comment your table definition and schema elements that allows the use of a data discovery tool.</li>
-<li>Append (rather than insert) new columns.</li>
-<li>Mark tables with skewed columns as skewed for efficient querying.</li>
-<li>Use <code>SORT BY</code> while storing data for better compression with ORCFile.</li>
-<li>Lay out related tables the same way, partition, and sort order.</li>
-<li>Partition data along natural query boundaries (e.g., date).</li>
-<li>Minimize data shuffle by collocating the most commonly joined data.</li>
-<li>Use RCFile with compression to save storage and to improve performance</li>
-</ul>
-<h2 id=data-consumers>Data Consumers</h2>
-<ul>
-<li>Use partition filter on partitioned tables.</li>
-<li>Understand the <a href=https://cwiki.apache.org/confluence/display/Hive/LanguageManual+SortBy#LanguageManualSortBy-DifferencebetweenSortByandOrderBy>differences between SORT BY and ORDER BY</a>.</li>
-<li>Use skew join for skewed data.</li>
-<li>Avoid <code>CROSS</code> joins.</li>
-<li>Filter out <code>NULL</code> values for inner joins.</li>
-<li>Use default parallel execution of Hive.</li>
-<li><strong>UDFs</strong> - you need to figure out if something special needs to be done for distributable UDAFs.</li>
-<li>Add frequently used commands in <code>$HOME/.hiverc</code>. For example: <code>SET mapred.job.queue.name=unfunded</code></li>
-<li>Use <code>EXPLAIN</code> to analyze a query (before executing it).</li>
-<li>Verify the query plan to ensure a single scan through largest table.</li>
-<li>Check the query plan to ensure partition pruning is happening.</li>
-<li>Use at least one <code>ON</code> clause in every <code>JOIN</code>.</li>
-<li>Tune <code>io.sort.mb</code> to avoid spilling.</li>
-<li>Tune <code>mapred.max.split.size</code> and <code>mapred.min.split.size</code> to ensure a single mapper wave.</li>
-<li>Tune <code>mapred.reduce.tasks</code> to an appropriate value based on the map output.</li>
-<li>Give extra memory for map joins like broadcast joins.</li>
-<li>Tune ORC parameters for better read performance.</li>
-</ul>
+<h2 id=overview>Overview</h2>
+<p>This post presents an overview of HDFS commands and a Hive command-line tutorial.</p>
+<h3 id=basic-hdfs-shell-commands>Basic HDFS Shell Commands</h3>
+<p>Before you start using the Hive CLI, you should be familiar with some basic <code>hdfs</code> commands that you&rsquo;ll need to use
+often when working on the grid. For a complete reference, see the
+<a href=http://archive.cloudera.com/cdh/3/hadoop/file_system_shell.html>File System Shell Guide</a></p>
+<h4 id=listing-hdfs-files>Listing HDFS Files</h4>
+<p>To get a stat for files</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>-bash-4.1$ hadoop fs -ls &lt;args&gt;
+</code></pre></div><h4 id=copying-files>Copying Files</h4>
+<p>The following allows you to copy files from a source to a destination.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>-bash-4.1$ hadoop fs -cp URI [URI …] &lt;dest&gt;
+</code></pre></div><p>You can also copy files from local to HDFS or from HDFS to local</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>-bash-4.1$ hadoop fs -copyFromLocal &lt;localsrc&gt; URI
+-bash-4.1$ hadoop fs -copyToLocal [-ignorecrc] [-crc] URI &lt;localdst&gt;
+</code></pre></div><h4 id=making-directories>Making Directories</h4>
+<p>You can create HDFS directories by specifying paths or URIs</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>-bash-4.1$ hadoop fs -mkdir &lt;paths|URIs&gt; 
+</code></pre></div><h4 id=moving-files-and-directories>Moving Files and Directories</h4>
+<p>You can use the following to move files from source to destination:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>-bash-4.1$ hadoop fs -mv URI [URI …] &lt;dest&gt;
+</code></pre></div><p>The above command allows multiple sources as well, in which case <code>&lt;dest></code> needs to be directory.
+Note, moving files across file systems is not permitted.</p>
+<p>As with copying files, you can move local files to HDFS and vice versa with the following:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>-bash-4.1$ hadoop fs -moveToLocal [-crc] &lt;src&gt; &lt;dst&gt;
+-bash-4.1$ hadoop fs -moveFromLocal &lt;localsrc&gt; &lt;dst&gt;
+</code></pre></div><h4 id=deleting-filesdirectories>Deleting Files/Directories</h4>
+<p>You can use the following to remove non-empty directories and files:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>-bash-4.1$ hadoop fs -rm [-skipTrash] URI [URI …]
+</code></pre></div><p>To recursively delete files, use the following:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>-bash-4.1$ hadoop fs -rmr [-skipTrash] URI [URI …]
+</code></pre></div><h4 id=viewing-file-content>Viewing File Content</h4>
+<p>Using the following command, you view the content by copying the source to <code>stdout</code>:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>-bash-4.1$ hadoop fs -cat URI [URI …]
+</code></pre></div><h3 id=security-model>Security Model</h3>
+<p>An organization contains sensitive data from many different properties. To preserve the integrity and confidentiality of
+that data, users of the organization should be restricted by ACLs that define access permissions. For example, people
+cannot create tables over the data that you do not have write permissions. For data that they do not have read
+permissions, they will not be able to view the data or its metadata.</p>
+<h3 id=next-steps>Next Steps</h3>
+<p>Read the <a href=https://cwiki.apache.org/confluence/display/Hive/LanguageManual>Hive Language Manual</a>.</p>
 </div>
 </div>
 <footer class="black-background static-bottom" style=padding:30px>

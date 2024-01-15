@@ -1,0 +1,490 @@
+<!doctype html><html><!doctype html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content>
+<meta name=author content>
+<title>Programming Hive</title>
+<link rel=icon href=/images/hive.svg sizes=any type=image/svg+xml>
+<link rel=stylesheet href=https://qubitpi.github.io/hive-site/css/hive-theme.css>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css>
+<link href=https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css rel=stylesheet integrity=sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC crossorigin=anonymous>
+<link rel=stylesheet href=https://qubitpi.github.io/hive-site/css/termynal.css>
+<link rel=apple-touch-icon sizes=180x180 href=https://qubitpi.github.io/hive-site/images/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=https://qubitpi.github.io/hive-site/images/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=https://qubitpi.github.io/hive-site/images/favicon-16x16.png>
+<link rel=manifest href=https://qubitpi.github.io/hive-site/images/site.webmanifest>
+<link rel=mask-icon href=https://qubitpi.github.io/hive-site/images/safari-pinned-tab.svg color=#5bbad5>
+<meta name=msapplication-TileColor content="#da532c">
+<meta name=theme-color content="#ffffff">
+</head>
+<body>
+<body>
+<header>
+<menu style=background:#000;margin:0>
+<nav class="navbar navbar-expand-lg navbar-dark bg-black">
+<div class=container-fluid>
+<a href=https://qubitpi.github.io/hive-site> <img src=https://qubitpi.github.io/hive-site/images/hive.svg width=60 height=35 alt="Apache Software Foundation"></a>
+<a class="header-text navbar-brand" href=https://qubitpi.github.io/hive-site>Apache Hive</a>
+<button class=navbar-toggler type=button data-bs-toggle=collapse data-bs-target=#navbarSupportedContent aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation">
+<span class=navbar-toggler-icon></span>
+</button>
+<div class="collapse navbar-collapse" id=navbarSupportedContent>
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+<li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" href=/Release id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>
+Release
+</a>
+<ul class=dropdown-menu aria-labelledby=navbarDropdown>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/general/downloads>Release</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/general/hcatalogdownloads/>Hcatalog</a></li>
+</ul>
+</li>
+<li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" href=/Document id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>
+Documentation
+</a>
+<ul class=dropdown-menu aria-labelledby=navbarDropdown>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/intro/>Introduction</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/developement/gettingstarted/>Getting Started</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/concepts/>Concepts</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/programming/>Programming</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/data-formats/>Data Formats</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/best-practices/>Best Practices</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/bi/>BI</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/javadocs/>Javadocs</a></li>
+<li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/LanguageManual>Language Manual</a></li>
+<li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/>Wiki</a></li>
+</ul>
+</li>
+<li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" href=/general id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>
+General
+</a>
+<ul class=dropdown-menu aria-labelledby=navbarDropdown>
+<li><a class=dropdown-item href=https://www.apache.org/licenses/LICENSE-2.0.html>License</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/general/privacypolicy/>Privacy Policy</a></li>
+</ul>
+</li>
+<li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" href=# id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>
+Development
+</a>
+<ul class=dropdown-menu aria-labelledby=navbarDropdown>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/developement/gettingstarted/>Getting Started</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/developement/quickstart/>Quickstart with Docker</a></li>
+<li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/DesignDocs>Design Docs</a></li>
+<li><a class=dropdown-item href=https://issues.apache.org/jira/projects/HIVE/issues>Hive JIRA</a></li>
+<li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/HiveDeveloperFAQ>Hive Developer FAQ</a></li>
+<li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/Hive+PreCommit+Patch+Testing>Precommit Patch Testing</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/developement/versioncontrol/>Version Control</a></li>
+</ul>
+</li>
+<li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" href=# id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>
+Community
+</a>
+<ul class=dropdown-menu aria-labelledby=navbarDropdown>
+<li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/BecomingACommitter>Becoming A Committer</a></li>
+<li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/HowToContribute>How To Contribute</a></li>
+<li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/Home#Home-ResourcesforContributors>Resources for Contributors</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/community/mailinglists/>Mailing Lists</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/community/issuetracking/>Issue Tracking</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/community/people/>People</a></li>
+<li>
+<hr class=dropdown-divider>
+</li>
+<li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/Bylaws>By Laws</a></li>
+<li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/HowToRelease>How To Release</a></li>
+</ul>
+</li>
+<li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" href=# id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>
+ASF
+</a>
+<ul class=dropdown-menu aria-labelledby=navbarDropdown>
+<li><a class=dropdown-item href=https://www.apache.org/foundation/contributing.html>Donations</a></li>
+<li><a class=dropdown-item href=https://www.apache.org/foundation/sponsorship.html>Sponsorship</a></li>
+<li><a class=dropdown-item href=https://www.apache.org/foundation/thanks.html>Thanks</a></li>
+<li><a class=dropdown-item href=https://www.apache.org/>Website</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+</menu>
+</header>
+<div class=content>
+<div class=docs>
+<h2 id=overview>Overview</h2>
+<p>This chapter is compiled from the Hive documentation from Hortonworks, Cloudera, and the book
+<a href="http://www.amazon.com/Programming-Hive-Edward-Capriolo-ebook/dp/B009D76316/ref=sr_1_1?ie=UTF8&qid=1402703076&sr=8-1&keywords=programming+hive">Programming Hive</a></p>
+<h2 id=hive-cli>Hive CLI</h2>
+<blockquote>
+<p>⚠️ <strong>Deprecation in favor of Beeline CLI</strong>. HiveServer2 (introduced in Hive 0.11) has its own CLI called
+<a href=https://cwiki.apache.org/confluence/display/Hive/HiveServer2+Clients#HiveServer2Clients-Beeline%E2%80%93NewCommandLineShell>Beeline</a>,
+which is a JDBC client based on SQLLine. Due to new development being focused on HiveServer2, Hive CLI will soon be
+deprecated in favor of Beeline.</p>
+</blockquote>
+<h3 id=start-beeline>Start Beeline</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>beeline -u &lt;database URL&gt; -n &lt;username&gt; -p &lt;password&gt;
+</code></pre></div><h3 id=print-configs-overridden-by-user-or-hive>Print Configs Overridden by User or Hive.</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>set;
+</code></pre></div><h3 id=prints-hadoop-and-hive-configs>Prints Hadoop and Hive Configs</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>set -v;
+</code></pre></div><h3 id=set-configurations>Set Configurations</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>set &lt;key&gt;=&lt;value&gt;;
+</code></pre></div><h3 id=add-resourceshttpscwikiapacheorgconfluencedisplayhivelanguagemanualclilanguagemanualcli-hiveresources-to-the-hadoop-distributed-cache>Add <a href=https://cwiki.apache.org/confluence/display/Hive/LanguageManual+Cli#LanguageManualCli-HiveResources>Resources</a> to the Hadoop Distributed Cache</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>add FILE[S] &lt;filepath&gt; &lt;filepath&gt;*;
+add JAR[S] &lt;filepath&gt; &lt;filepath&gt;*;
+add ARCHIVE[S] &lt;filepath&gt; &lt;filepath&gt;*;
+</code></pre></div><h3 id=list-databases>List Databases</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>SHOW</span> DATABASES;
+</code></pre></div><h3 id=list-tables>List Tables</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>SHOW</span> TABLES;
+</code></pre></div><h3 id=truncate-table>Truncate Table</h3>
+<h4 id=through-spark-shell>Through spark-shell</h4>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>sql</span>(<span style=color:#e6db74>&#34;TRUNCATE TABLE &lt;db&gt;.&lt;table&gt;&#34;</span>);
+</code></pre></div><h3 id=create-a-table-example>Create a Table (Example)</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>TABLE</span> <span style=color:#66d9ef>IF</span> <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>EXISTS</span> celebrity (
+    object_key String,
+    name String
+)
+<span style=color:#66d9ef>COMMENT</span> <span style=color:#e6db74>&#39;Celebrity Info&#39;</span>
+<span style=color:#66d9ef>ROW</span> FORMAT DELIMITED
+FIELDS TERMINATED <span style=color:#66d9ef>BY</span> <span style=color:#e6db74>&#39;\t&#39;</span>
+LINES TERMINATED <span style=color:#66d9ef>BY</span> <span style=color:#e6db74>&#39;\n&#39;</span>
+STORED <span style=color:#66d9ef>AS</span> TEXTFILE;
+</code></pre></div><h3 id=describe-a-table>Describe a Table</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>DESCRIBE</span> <span style=color:#f92672>&lt;</span>tablename<span style=color:#f92672>&gt;</span>;
+</code></pre></div><p>For more information:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>DESCRIBE</span> EXTENDED <span style=color:#f92672>&lt;</span>tablename<span style=color:#f92672>&gt;</span>;
+</code></pre></div><h3 id=list-functions>List Functions</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#f92672>`</span>hive<span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>show</span> functions;<span style=color:#f92672>`</span>
+</code></pre></div><h3 id=describe-a-function>Describe a Function</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#f92672>`</span>hive<span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>describe</span> <span style=color:#66d9ef>function</span> <span style=color:#f92672>&lt;</span>functionname<span style=color:#f92672>&gt;</span>;<span style=color:#f92672>`</span>
+</code></pre></div><h2 id=hiveql-basics>HiveQL Basics</h2>
+<p>As the section indicates, we&rsquo;re just going to look at some more commonly used HiveQL statements. See the
+<a href=https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL>Hive DDL Language Manual</a> for the comprehensive
+HiveQL documentation.</p>
+<h3 id=databases>Databases</h3>
+<h4 id=creating>Creating</h4>
+<h5 id=syntax>Syntax</h5>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>CREATE</span> (<span style=color:#66d9ef>DATABASE</span><span style=color:#f92672>|</span><span style=color:#66d9ef>SCHEMA</span>) [<span style=color:#66d9ef>IF</span> <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>EXISTS</span>] database_name
+    [<span style=color:#66d9ef>COMMENT</span> database_comment]
+    [<span style=color:#66d9ef>LOCATION</span> hdfs_path]
+    [<span style=color:#66d9ef>WITH</span> DBPROPERTIES (property_name<span style=color:#f92672>=</span>property_value, ...)];
+</code></pre></div><h5 id=example>Example</h5>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>DATABASE</span> my_db <span style=color:#66d9ef>IF</span> <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>EXISTS</span> my_db <span style=color:#66d9ef>LOCATION</span> <span style=color:#e6db74>&#39;/tmp/my_databases/&#39;</span>;
+</code></pre></div><h4 id=dropping>Dropping</h4>
+<h5 id=syntax-1>Syntax</h5>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>DROP</span> (<span style=color:#66d9ef>DATABASE</span><span style=color:#f92672>|</span><span style=color:#66d9ef>SCHEMA</span>) [<span style=color:#66d9ef>IF</span> <span style=color:#66d9ef>EXISTS</span>] database_name [<span style=color:#66d9ef>RESTRICT</span><span style=color:#f92672>|</span><span style=color:#66d9ef>CASCADE</span>];
+</code></pre></div><h5 id=example-1>Example</h5>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>DROP</span> my_db <span style=color:#66d9ef>IF</span> <span style=color:#66d9ef>EXISTS</span> my_db;
+</code></pre></div><h4 id=altering>Altering</h4>
+<p>Using the <code>ALTER DATABASE</code> command, you can set key-value pairs in the <code>DBPROPERTIES</code> associated with a database. No
+other metadata about the database can be changed, including its name and directory location.</p>
+<h5 id=syntax-2>Syntax</h5>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>ALTER</span> <span style=color:#66d9ef>DATABASE</span> database_name <span style=color:#66d9ef>SET</span> DBPROPERTIES (property_name<span style=color:#f92672>=</span>property_value, ...);
+</code></pre></div><h5 id=example-2>Example</h5>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>ALTER</span> <span style=color:#66d9ef>DATABASE</span> stock_portfolio <span style=color:#66d9ef>SET</span> DBPROPERTIES (<span style=color:#e6db74>&#39;advisor&#39;</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;Jason Jones&#39;</span>);
+</code></pre></div><h3 id=tables>Tables</h3>
+<h4 id=data-types>Data Types</h4>
+<p>The following table lists the supported data types for columns:</p>
+<table>
+<thead>
+<tr>
+<th>Data Types</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TINYINT</td>
+<td><code>20</code></td>
+<td>One-byte signed integer</td>
+</tr>
+<tr>
+<td>SMALLINT</td>
+<td><code>327</code></td>
+<td>Two-byte signed integer</td>
+</tr>
+<tr>
+<td>INT</td>
+<td><code>214748</code></td>
+<td>Four-byte signed integer</td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td><code>9223372036</code></td>
+<td>Eight-byte signed integer</td>
+</tr>
+<tr>
+<td>FLOAT</td>
+<td>3.14</td>
+<td>Single precision floating point</td>
+</tr>
+<tr>
+<td>STRING</td>
+<td>Strings are great</td>
+<td>A sequence of characters. The character set can be specified. Single or double quotes can be used</td>
+</tr>
+<tr>
+<td>BOOLEAN</td>
+<td><code>TRUE</code></td>
+<td>The boolean value of either <code>true</code> or <code>false</code></td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>1327882394 (Unix epoch seconds), 1327882394.123456789 (Unix epoch seconds plus nanoseconds), and &lsquo;2012-02-03 12:34:56.123456789&rsquo; (JDBC-compliant java.sql.Timestamp format)</td>
+<td>Integer, float, or string</td>
+</tr>
+<tr>
+<td>BINARY</td>
+<td>&ndash;</td>
+<td>An array of bytes</td>
+</tr>
+<tr>
+<td>ARRAY</td>
+<td>[&lsquo;pineapples&rsquo;, &lsquo;mangos&rsquo;]</td>
+<td>A collection of key-value tuples, where the fields are accessed using array notation (e.g., [&lsquo;key&rsquo;])</td>
+</tr>
+<tr>
+<td>MAP</td>
+<td>(&lsquo;colors&rsquo;, &lsquo;7&rsquo;, &lsquo;patterns&rsquo;, &lsquo;10&rsquo;)</td>
+<td>A collection of key/value pairs or tuples defined as <code>Map&lt;string, integer></code></td>
+</tr>
+<tr>
+<td>STRUCT</td>
+<td>{&lsquo;fname&rsquo;:&lsquo;Tom&rsquo;, &lsquo;nickname&rsquo;:&lsquo;Haymaker&rsquo;, &lsquo;lname&rsquo;:&lsquo;Jiggins&rsquo;}</td>
+<td>Analogous to a C struct or an &lsquo;object&rsquo;. Fields can be accessed using the &lsquo;dot&rsquo; notation. For example, if a column name is of type <code>STRUCT {first STRING; last STRING}</code>, then the first name field can be referenced using <code>name.first</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id=viewingdescribing>Viewing/Describing</h4>
+<p>To see all of the tables in a database::</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>SHOW</span> TABLES;
+</code></pre></div><p>You can also view the schema of a particular table::</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>DESCRIBE</span> yourtable;
+</code></pre></div><h4 id=creating-1>Creating</h4>
+<p>To create a table, you define a schema with the <code>CREATE</code> that specifies rows delimited by commas and the file type to
+store the data at the given location.</p>
+<h5 id=syntax-3>Syntax</h5>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>CREATE</span> [<span style=color:#66d9ef>EXTERNAL</span>] <span style=color:#66d9ef>TABLE</span> [<span style=color:#66d9ef>IF</span> <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>EXISTS</span>] [db_name.]<span style=color:#66d9ef>table_name</span>
+  [(col_name data_type [<span style=color:#66d9ef>COMMENT</span> col_comment], ...)]
+  [<span style=color:#66d9ef>COMMENT</span> table_comment]
+  [PARTITIONED <span style=color:#66d9ef>BY</span> (col_name data_type [<span style=color:#66d9ef>COMMENT</span> col_comment], ...)]
+  [CLUSTERED <span style=color:#66d9ef>BY</span> (col_name, col_name, ...) [SORTED <span style=color:#66d9ef>BY</span> (col_name [<span style=color:#66d9ef>ASC</span><span style=color:#f92672>|</span><span style=color:#66d9ef>DESC</span>], ...)] <span style=color:#66d9ef>INTO</span> num_buckets BUCKETS]
+  [SKEWED <span style=color:#66d9ef>BY</span> (col_name, col_name, ...) <span style=color:#66d9ef>ON</span> ([(col_value, col_value, ...), ...<span style=color:#f92672>|</span>col_value, col_value, ...]) [STORED <span style=color:#66d9ef>AS</span> DIRECTORIES] (Note: <span style=color:#66d9ef>Only</span> available starting <span style=color:#66d9ef>with</span> Hive <span style=color:#ae81ff>0</span>.<span style=color:#ae81ff>10</span>.<span style=color:#ae81ff>0</span>)]
+  [
+   [<span style=color:#66d9ef>ROW</span> FORMAT row_format] [STORED <span style=color:#66d9ef>AS</span> file_format]
+   <span style=color:#f92672>|</span> STORED <span style=color:#66d9ef>BY</span> <span style=color:#e6db74>&#39;storage.handler.class.name&#39;</span> [<span style=color:#66d9ef>WITH</span> SERDEPROPERTIES (...)]  (Note: <span style=color:#66d9ef>Only</span> available starting <span style=color:#66d9ef>with</span> Hive <span style=color:#ae81ff>0</span>.<span style=color:#ae81ff>6</span>.<span style=color:#ae81ff>0</span>)
+  ]
+  [<span style=color:#66d9ef>LOCATION</span> hdfs_path]
+  [TBLPROPERTIES (property_name<span style=color:#f92672>=</span>property_value, ...)]  (Note: <span style=color:#66d9ef>Only</span> available starting <span style=color:#66d9ef>with</span> Hive <span style=color:#ae81ff>0</span>.<span style=color:#ae81ff>6</span>.<span style=color:#ae81ff>0</span>)
+  [<span style=color:#66d9ef>AS</span> select_statement]  
+</code></pre></div><h5 id=example-3>Example</h5>
+<p>In this statement, you are defining the schema for the table <code>search</code> and storing the data as an ORC File.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>TABLE</span> <span style=color:#66d9ef>search</span> (
+    bcookie string, 
+    time_stamp int, 
+    yuid string, 
+    ip string, 
+    pg_spaceid string, 
+...)
+STORED <span style=color:#66d9ef>AS</span> orc;
+</code></pre></div><p>When you drop a typical table, the raw data is lost because the directory corresponding to the table in warehouse is
+deleted. Thus, to retain the raw data for others to run queries, you should create <code>"EXTERNAL"</code> tables.</p>
+<p>To create an external table, explicitly use the keyword <code>EXTERNAL</code> and point to the location of data while creating
+the tables. This will ensure that the data is not moved into a location inside the warehouse directory.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>EXTERNAL</span> <span style=color:#66d9ef>TABLE</span> <span style=color:#66d9ef>search</span> (
+    bcookie string, 
+    time_stamp int, 
+    yuid string, 
+    ip string, 
+    pg_spaceid string, 
+...)
+STORED <span style=color:#66d9ef>AS</span> orc
+<span style=color:#66d9ef>location</span> <span style=color:#e6db74>&#39;/some-path&#39;</span>;
+</code></pre></div><h3 id=creatingadding-partitions>Creating/Adding Partitions</h3>
+<p>In addition to creating columns for a table, you can create partitions, which allow you to efficiently find rows based
+on certain criteria.</p>
+<h5 id=syntax-4>Syntax</h5>
+<p>Creating a table with partitions::</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>CREATE</span> [<span style=color:#66d9ef>EXTERNAL</span>] <span style=color:#66d9ef>TABLE</span> [<span style=color:#66d9ef>IF</span> <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>EXISTS</span>] [db_name.]<span style=color:#66d9ef>table_name</span>
+    [(col_name data_type [<span style=color:#66d9ef>COMMENT</span> col_comment], ...)]
+   [<span style=color:#66d9ef>COMMENT</span> table_comment]
+   [PARTITIONED <span style=color:#66d9ef>BY</span> (col_name data_type [<span style=color:#66d9ef>COMMENT</span> col_comment], ...)]
+</code></pre></div><p>Adding a partition to an existing table::</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>ALTER</span> <span style=color:#66d9ef>TABLE</span> <span style=color:#66d9ef>table_name</span> <span style=color:#66d9ef>ADD</span> [<span style=color:#66d9ef>IF</span> <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>EXISTS</span>] PARTITION partition_spec [<span style=color:#66d9ef>LOCATION</span> <span style=color:#e6db74>&#39;location1&#39;</span>] partition_spec [<span style=color:#66d9ef>LOCATION</span> <span style=color:#e6db74>&#39;location2&#39;</span>] ...
+</code></pre></div><h5 id=example-4>Example</h5>
+<p>For example, you could partition the table based the criteria of the locale and datestamp to fetch BCookies from the &ldquo;US&rdquo; after the date &ldquo;2014-01-01&rdquo;.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>EXTERNAL</span> <span style=color:#66d9ef>TABLE</span> <span style=color:#66d9ef>search</span> (
+    bcookie string, 
+    time_stamp int, 
+    yuid string, 
+    ip string, 
+    pg_spaceid string, 
+...)
+PARTITIONED <span style=color:#66d9ef>BY</span> (
+    locale string, 
+    datestamp string)
+STORED <span style=color:#66d9ef>AS</span> orc
+<span style=color:#66d9ef>location</span> <span style=color:#e6db74>&#39;...&#39;</span>;
+</code></pre></div><p>You can also add partitions to existing tables with the <code>ALTER</code> key word</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>ALTER</span> <span style=color:#66d9ef>TABLE</span> <span style=color:#66d9ef>search</span> <span style=color:#66d9ef>ADD</span> PARTITION ( locale<span style=color:#f92672>=</span><span style=color:#960050;background-color:#1e0010>‘</span>US<span style=color:#e6db74>&#39;, datestamp=‘20130201&#39;</span>) 
+<span style=color:#66d9ef>LOCATION</span> <span style=color:#e6db74>&#39;...&#39;</span>;
+</code></pre></div><h3 id=reading-data>Reading Data</h3>
+<p>Reading data uses the <code>SELECT</code> key word and can include filters and functions. Because a <code>SELECT</code> statement can be
+complex, we&rsquo;re going to just look at some examples and not give the syntax.</p>
+<h4 id=selecting-all-values>Selecting All Values</h4>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#f92672>`</span><span style=color:#66d9ef>SELECT</span> <span style=color:#f92672>*</span> <span style=color:#66d9ef>FROM</span>	your_table;<span style=color:#f92672>`</span>
+</code></pre></div><h4 id=selecting-columns>Selecting Columns</h4>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#f92672>`</span><span style=color:#66d9ef>SELECT</span> column_a, column_b <span style=color:#66d9ef>FROM</span> your_table;<span style=color:#f92672>`</span>
+</code></pre></div><h4 id=filtering-data>Filtering Data</h4>
+<h5 id=where><code>WHERE</code></h5>
+<p>The results from the query below are filtered based on the amount and region::</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>SELECT</span> <span style=color:#f92672>*</span> <span style=color:#66d9ef>FROM</span> sales <span style=color:#66d9ef>WHERE</span> amount <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>10</span> <span style=color:#66d9ef>AND</span> region <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;US&#34;</span>
+</code></pre></div><h5 id=having><code>HAVING</code></h5>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>SELECT</span> col1 <span style=color:#66d9ef>FROM</span> t1 <span style=color:#66d9ef>GROUP</span> <span style=color:#66d9ef>BY</span> col1 <span style=color:#66d9ef>HAVING</span> <span style=color:#66d9ef>SUM</span>(col2) <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>10</span>
+</code></pre></div><h5 id=limit><code>LIMIT</code></h5>
+<p>Limit indicates the number of rows to be returned. The rows returned are chosen at random. The following query returns 5
+rows from t1 at random.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>SELECT</span> <span style=color:#f92672>*</span> <span style=color:#66d9ef>FROM</span> t1 <span style=color:#66d9ef>LIMIT</span> <span style=color:#ae81ff>5</span>
+</code></pre></div><h4 id=groupingorderingsorting>Grouping/Ordering/Sorting</h4>
+<h5 id=group-by><code>GROUP BY</code></h5>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>SELECT</span>
+    a,
+    <span style=color:#66d9ef>sum</span>(b)
+<span style=color:#66d9ef>FROM</span>
+    t1
+<span style=color:#66d9ef>GROUP</span> <span style=color:#66d9ef>BY</span>
+    a;
+</code></pre></div><h5 id=order-by><code>ORDER BY</code></h5>
+<p>When using <code>ORDER BY</code>, data is passed through one reducer to create an ordered result set from all of the data. This
+may require an exceptionally long time to execute for larger data sets.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>SELECT</span> s.symbol, s.price_open, s.price_close
+<span style=color:#66d9ef>FROM</span> stocks s
+<span style=color:#66d9ef>ORDER</span> <span style=color:#66d9ef>BY</span> s.symbol <span style=color:#66d9ef>ASC</span>, s.price_open <span style=color:#66d9ef>DESC</span>;
+</code></pre></div><h5 id=sort-by><code>SORT BY</code></h5>
+<p><code>SORT BY</code> orders data within each reducer, thereby performing a local ordering, where each reducer&rsquo;s output will be
+sorted. The performance is better, but you get a local ordering instead of an ordering of all the data from each
+reducer.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>SELECT</span> s.symbol, s.price_open, s.price_close
+<span style=color:#66d9ef>FROM</span> stocks s
+SORT <span style=color:#66d9ef>BY</span> s.symbol <span style=color:#66d9ef>ASC</span>, s.price_open <span style=color:#66d9ef>DESC</span>;
+</code></pre></div><h3 id=writing-data>Writing Data</h3>
+<h4 id=load-files-into-tables>Load Files Into Tables</h4>
+<p>Load operations are copy/move operations from HDFS or local filesystem that move datafiles into locations corresponding
+to Hive tables. File format must agree with the table format.</p>
+<h5 id=syntax-5>Syntax</h5>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>LOAD</span> <span style=color:#66d9ef>DATA</span> [<span style=color:#66d9ef>LOCAL</span>] INPATH <span style=color:#e6db74>&#39;filepath&#39;</span> [OVERWRITE] <span style=color:#66d9ef>INTO</span> <span style=color:#66d9ef>TABLE</span> tablename 
+[PARTITION (partcol1<span style=color:#f92672>=</span>val1, partcol2<span style=color:#f92672>=</span>val2 ...)];
+</code></pre></div><h5 id=example-5>Example</h5>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>LOAD</span> <span style=color:#66d9ef>DATA</span> <span style=color:#66d9ef>LOCAL</span> INPATH <span style=color:#e6db74>&#39;./data/nyse.txt&#39;</span> OVERWRITE <span style=color:#66d9ef>INTO</span> <span style=color:#66d9ef>TABLE</span> stocks;
+</code></pre></div><h4 id=insert-data-from-a-query-into-tables>Insert Data From a Query Into Tables</h4>
+<p>Query results can be inserted into tables of file system directories by using the insert clause.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>INSERT</span> OVERWRITE <span style=color:#66d9ef>TABLE</span> tablename1 [PARTITION (partcol1<span style=color:#f92672>=</span>val1, partcol2<span style=color:#f92672>=</span>val2 ...) [<span style=color:#66d9ef>IF</span> <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>EXISTS</span>]] select_statement1 <span style=color:#66d9ef>FROM</span> from_statement;
+<span style=color:#66d9ef>INSERT</span> <span style=color:#66d9ef>INTO</span> <span style=color:#66d9ef>TABLE</span> tablename1 [PARTITION (partcol1<span style=color:#f92672>=</span>val1, partcol2<span style=color:#f92672>=</span>val2 ...)] select_statement1 <span style=color:#66d9ef>FROM</span> from_statement;
+</code></pre></div><p>Hive also supports multiple inserts in the same statement or dynamic partition inserts.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>set</span> hive.<span style=color:#66d9ef>exec</span>.<span style=color:#66d9ef>dynamic</span>.partition <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span> <span style=color:#f92672>|</span> <span style=color:#66d9ef>false</span>;
+<span style=color:#66d9ef>set</span> hive.<span style=color:#66d9ef>exec</span>.<span style=color:#66d9ef>dynamic</span>.partition.<span style=color:#66d9ef>mode</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>strict</span> <span style=color:#f92672>|</span> nonstrict; 
+</code></pre></div><h4 id=alter-table-add-partitions>Alter Table Add Partitions</h4>
+<p>You can use ALTER TABLE ADD PARTITION to add partitions to a table. The location must be a directory inside of which
+data files reside.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>ALTER</span> <span style=color:#66d9ef>TABLE</span> <span style=color:#66d9ef>table_name</span> <span style=color:#66d9ef>ADD</span> PARTITION (partCol <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;value1&#39;</span>) <span style=color:#66d9ef>location</span> <span style=color:#e6db74>&#39;loc1&#39;</span>;
+</code></pre></div><p>If new partitions are directly added to HDFS, Hive will not be aware of these. Thus, you will need to add the metadata
+about the partitions from HDFS into the Hive metastore with the following:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql>MSCK REPAIR <span style=color:#66d9ef>TABLE</span> <span style=color:#66d9ef>table_name</span>;
+</code></pre></div><h2 id=integrating-hive-with-oozie>Integrating Hive with Oozie</h2>
+<p>In Oozie, a <em>hive action</em> runs a Hive job. The workflow job will wait until the Hive job completes before continuing to
+the next action. To run the Hive job, you have to configure the hive action with the job-tracker, name-node and Hive
+script elements as well as the necessary parameters and configuration</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=color:#f92672>&lt;workflow-app</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;sample-wf&#34;</span> <span style=color:#a6e22e>xmlns=</span><span style=color:#e6db74>&#34;uri:oozie:workflow:0.1&#34;</span><span style=color:#f92672>&gt;</span>
+    ...
+    <span style=color:#f92672>&lt;action</span> <span style=color:#a6e22e>name=</span><span style=color:#e6db74>&#34;myfirsthivejob&#34;</span><span style=color:#f92672>&gt;</span>
+        <span style=color:#f92672>&lt;hive</span> <span style=color:#a6e22e>xmlns=</span><span style=color:#e6db74>&#34;uri:oozie:hive-action:0.2&#34;</span><span style=color:#f92672>&gt;</span>
+            <span style=color:#f92672>&lt;job-traker&gt;</span>foo:8021<span style=color:#f92672>&lt;/job-tracker&gt;</span>
+            <span style=color:#f92672>&lt;name-node&gt;</span>bar:8020<span style=color:#f92672>&lt;/name-node&gt;</span>
+            <span style=color:#f92672>&lt;prepare&gt;</span>
+                <span style=color:#f92672>&lt;delete</span> <span style=color:#a6e22e>path=</span><span style=color:#e6db74>&#34;${jobOutput}&#34;</span><span style=color:#f92672>/&gt;</span>
+            <span style=color:#f92672>&lt;/prepare&gt;</span>
+            <span style=color:#f92672>&lt;configuration&gt;</span>
+                <span style=color:#f92672>&lt;property&gt;</span>
+                    <span style=color:#f92672>&lt;name&gt;</span>mapred.compress.map.output<span style=color:#f92672>&lt;/name&gt;</span>
+                    <span style=color:#f92672>&lt;value&gt;</span>true<span style=color:#f92672>&lt;/value&gt;</span>
+                <span style=color:#f92672>&lt;/property&gt;</span>
+            <span style=color:#f92672>&lt;/configuration&gt;</span>
+            <span style=color:#f92672>&lt;script&gt;</span>myscript.q<span style=color:#f92672>&lt;/script&gt;</span> 
+            <span style=color:#f92672>&lt;param&gt;</span>InputDir=/home/tucu/input-data<span style=color:#f92672>&lt;/param&gt;</span>
+            <span style=color:#f92672>&lt;param&gt;</span>OutputDir=${jobOutput}<span style=color:#f92672>&lt;/param&gt;</span>
+        <span style=color:#f92672>&lt;/hive&gt;</span>
+        <span style=color:#f92672>&lt;ok</span> <span style=color:#a6e22e>to=</span><span style=color:#e6db74>&#34;myotherjob&#34;</span><span style=color:#f92672>/&gt;</span>
+        <span style=color:#f92672>&lt;error</span> <span style=color:#a6e22e>to=</span><span style=color:#e6db74>&#34;errorcleanup&#34;</span><span style=color:#f92672>/&gt;</span>
+    <span style=color:#f92672>&lt;/action&gt;</span>
+    ...
+<span style=color:#f92672>&lt;/workflow-app&gt;</span>
+</code></pre></div><h2 id=integrating-hive-with-hbase>Integrating Hive With HBase</h2>
+<p>Hive defines the <code>HBaseStorageHandler</code> class to enable integration with <a href=http://hbase.apache.org/>HBase</a>. This
+class has hooks for input/output formats and for metadata operations like CREATE, DELETE, etc.</p>
+<p>Hive tables have columns and column types. In Hbase tables, this is the equivalent to
+<a href=http://hbase.apache.org/book/columnfamily.html>column families and column qualifiers</a>. Hive, however, does not need to
+include all the columns in an HBase table.</p>
+<p>The following schema definition stores the data with the <code>HBaseStorageHandler</code>, maps the HBase columns with the key
+word <code>SERDEPROPERTIES</code>, and points to the HBase table with the key word <code>TBLEPROPERTIES</code>.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>TABLE</span> short_urls(
+   short_url string,
+   url string,
+   hit_count int
+)
+STORED <span style=color:#66d9ef>BY</span>
+<span style=color:#e6db74>&#39;org.apache.hadoop.hive.hbase.HBaseStorageHandler&#39;</span>
+
+<span style=color:#66d9ef>WITH</span> SERDEPROPERTIES
+(<span style=color:#e6db74>&#34;hbase.columns.mapping&#34;</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;:key, u:url, s:hits&#34;</span>)
+
+TBLPROPERTIES
+(<span style=color:#e6db74>&#34;hbase.table.name&#34;</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;short_urls&#34;</span>);
+</code></pre></div>
+</div>
+</div>
+<footer class="black-background static-bottom" style=padding:30px>
+<div class=row>
+<div class=col-3>
+<a href=https://www.apache.org/>
+<img src=https://qubitpi.github.io/hive-site/images/asf_logo.png width=270 height=100 alt="Apache Software Foundation"></a>
+</a>
+</div>
+<div class=col-9>
+<p class=footer-text>Apache is a non-profit organization helping open-source
+software projects released under the Apache
+<a href=https://www.apache.org/licenses/>license</a>
+and managed with
+<a href=https://www.apache.org/foundation/how-it-works.html>
+open governance</a> and
+<a href=https://privacy.apache.org/policies/privacy-policy-public.html>
+privacy policy</a>. See upcoming
+<a href=https://www.apache.org/events/current-event>Apache Events</a>.
+If you discover any
+<a href=https://www.apache.org/security/>security</a> vulnerabilities, please
+report them privately. Finally,
+<a href=https://www.apache.org/foundation/sponsorship.html>thanks
+</a> to the sponsors who
+<a href=https://www.apache.org/foundation/contributing.html>
+donate</a> to the Apache Foundation.
+</p>
+</div>
+</div>
+<div class="copyright row">
+<a href=https://qubitpi.github.io/hive-site style=color:grey>
+The contents of this website are © 2023 Apache Software Foundation under the terms of the Apache License v2. Apache Hive and its logo are trademarks of the Apache Software Foundation.
+</a>
+</div>
+</footer>
+<script src=https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js integrity=sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM crossorigin=anonymous></script>
+</body>
+</html>

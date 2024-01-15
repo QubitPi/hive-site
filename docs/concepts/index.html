@@ -6,7 +6,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=description content>
 <meta name=author content>
-<title>Business Intelligence (BI) / Analytics</title>
+<title>Hive Concepts</title>
 <link rel=icon href=/images/hive.svg sizes=any type=image/svg+xml>
 <link rel=stylesheet href=https://qubitpi.github.io/hive-site/css/hive-theme.css>
 <link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css>
@@ -47,7 +47,13 @@ Release
 Documentation
 </a>
 <ul class=dropdown-menu aria-labelledby=navbarDropdown>
-<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/hive-intro/>Introduction</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/intro/>Introduction</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/developement/gettingstarted/>Getting Started</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/concepts/>Concepts</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/programming/>Programming</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/data-formats/>Data Formats</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/best-practices/>Best Practices</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/bi/>BI</a></li>
 <li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/javadocs/>Javadocs</a></li>
 <li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/LanguageManual>Language Manual</a></li>
 <li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/>Wiki</a></li>
@@ -113,58 +119,55 @@ ASF
 </header>
 <div class=content>
 <div class=docs>
+<h2 id=hive-data-model>Hive Data Model</h2>
+<p>Data in Hive is organized into:</p>
 <ul>
-<li>TOC
-{:toc}</li>
+<li><strong>Tables</strong> - These are analogous to Tables in Relational Databases. Tables can be filtered, projected, joined and
+unioned. Additionally <strong>all the data of a table is stored in a directory in HDFS</strong>. Hive also supports the notion of
+external tables wherein a table can be created on prexisting files or directories in HDFS by providing the appropriate
+location to the table creation DDL. The rows in a table are organized into typed columns similar to Relational
+Databases.</li>
+<li><strong>Partitions</strong> - Each Table can have one or more partition keys which determine how the data is stored, for example a
+table <code>T</code> with a date partition column <code>ds</code> had files with data for a particular date stored in the
+<code>&lt;table location>/ds=&lt;date></code> <strong>directory</strong> in HDFS. Partitions allow the system to prune data to be inspected based on
+query predicates, for example a query that is interested in rows from <code>T</code> that satisfy the predicate
+<code>T.ds = '2008-09-01'</code> would only have to look at files in <code>&lt;table location>/ds=2008-09-01/</code> directory in HDFS.</li>
+<li><strong>Buckets</strong> - Data in each partition may in turn be divided into Buckets based on the hash of a column in the table.
+Each bucket is stored as a <strong>file</strong> in the partition directory. Bucketing allows the system to efficiently evaluate
+queries that depend on a sample of data (these are queries that use the <code>SAMPLE</code> clause on the table).</li>
 </ul>
-<h2 id=overview>Overview</h2>
-<p>You can use business intelligence (BI) and data analytics tools such as <a href=http://www.tableausoftware.com/>Tableau</a> and
-<a href=https://www.microstrategy.com/us/>MicroStrategy</a> with data on Hadoop. These tools access grid data with Hive through
-the
-<a href=http://hortonworks.com/wp-content/uploads/2013/04/Hortonworks-Hive-ODBC-Driver-User-Guide.pdf>Hortonworks Hive ODBC driver</a>.</p>
-<p>For those who are not familiar with Tableau and MicroStrategy, please read the next section that discusses the
-differences and strengths of each so you can use the tool that best meets your needs. If you know which tool is right
-for you, continue to :ref:<code>Visualizing Data and Ad Hoc Reporting With Tableau &lt;getting_started-tableau></code> or
-:ref:<code>Standard Reporting With MicroStrategy &lt;gs_bi-ms></code>.</p>
-<h3 id=hdfs-stack-for-bi>HDFS Stack for BI</h3>
-<p>The diagram below shows how client software such as MicroStrategy and Tableau use the ODBC driver to communicate with
-HiveServer2, which in turn, forwards queries to Hive that ultimately are executed as MapReduce functions on Hadoop.</p>
-<p>![BI on the Grid]({{ &ldquo;/assets/img/bi_grid.png&rdquo; | relative_url}})</p>
-<h2 id=microstrategy-versus-tableau>MicroStrategy Versus Tableau</h2>
-<p>The general rule is to use MicroStrategy for standardized reporting or Tableau for visualizing data.</p>
-<h3 id=microstrategy>MicroStrategy</h3>
-<h4 id=strengths>Strengths</h4>
-<ul>
-<li>Great for reporting that has stabilized (not changing much over time).</li>
-<li>Drill-down/through is great for facilitating an interactive discussion with business leaders.</li>
-<li>Report-sharing helps keep the data on the back-end, reducing the emailing of large Excel files.</li>
-<li>Allows for programmatic usage through a Web service API.</li>
-<li>Supports standard reporting.</li>
-<li>Provides access through a Web interface.</li>
-<li>Developer suite for generating reports.</li>
-</ul>
-<h4 id=weaknesses>Weaknesses</h4>
-<ul>
-<li>Requires greater technical knowledge, and the process of creating a new view is clumsy and time-consuming.</li>
-<li>Provides no capability of combining HDFS data with data outside the HDFS.</li>
-<li>Learning to use MicroStrategy is more difficult.</li>
-</ul>
-<h3 id=tableau>Tableau</h3>
-<h4 id=strengths-1>Strengths</h4>
-<ul>
-<li>Lets you quickly make sense of millions of rows of data through visualization.</li>
-<li>Does an excellent job of recognizing facts and dimensions in de-normalized data files (say CSV or Excel) as well as
-connecting to larger databases.</li>
-<li>The learning curve is low, especially if you are comfortable with Excel Pivot Tables or something similar.</li>
-<li>Allows for ad hoc reporting.</li>
-</ul>
-<h4 id=weaknesses-1>Weaknesses</h4>
-<ul>
-<li>For broader enterprise needs, such as data security and segmentation, heavy duty report customization, or data
-transformation, Tableau is a less comprehensive tool than MicroStrategy.</li>
-<li>The license for using Tableau is expensive.</li>
-<li>You can only use Tableau through the desktop application.</li>
-</ul>
+<h2 id=partition>Partition</h2>
+<p>Each Table can have one or more partition Keys which determines how the data is stored. Partitions - apart from being
+storage units - also allow the user to efficiently identify the rows that satisfy a specified criteria; for example, a
+date_partition of type STRING and country_partition of type STRING. Each unique value of the partition keys defines a
+partition of the Table. For example, all &ldquo;US&rdquo; data from &ldquo;2009-12-23&rdquo; is a partition of the page_views table. Therefore,
+if you run analysis on only the &ldquo;US&rdquo; data for 2009-12-23, you can run that query only on the relevant partition of the
+table, thereby speeding up the analysis significantly. Note however, that just because a partition is named 2009-12-23
+does not mean that it contains all or only data from that date; partitions are named after dates for convenience; it is
+the user&rsquo;s job to guarantee the relationship between partition name and data content! Partition columns are virtual
+columns, they are not part of the data itself but are derived on load.</p>
+<h3 id=how-to-partitioned-tables>How to Partitioned Tables</h3>
+<p>Partitioned tables can be created using the <code>PARTITIONED BY</code> clause. A table can have one or more partition columns and
+a separate data directory is created for each distinct value combination in the partition columns. Further, tables or
+partitions can be bucketed using <code>CLUSTERED BY</code> columns, and data can be sorted within that bucket via <code>SORT BY</code>
+columns. This can improve performance on certain kinds of queries.</p>
+<p>If, when creating a partitioned table, you get this error: &ldquo;FAILED: Error in semantic analysis: Column repeated in
+partitioning columns,&rdquo; it means you are trying to include the partitioned column in the data of the table itself. You
+probably really do have the column defined. However, the partition you create makes a pseudo-column on which you can
+query, so you must rename your table column to something else (that users should not query on!).</p>
+<p>For example, suppose your original unpartitioned table had three columns: id, date, and name:</p>
+<pre tabindex=0><code class=language-csv data-lang=csv>id     int,
+date   date,
+name   varchar
+</code></pre><p>Now you want to partition on date. Your Hive definition could use &ldquo;dtDontQuery&rdquo; as a column name so that &ldquo;date&rdquo; can be
+used for partitioning (and querying).</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>create</span> <span style=color:#66d9ef>table</span> <span style=color:#66d9ef>table_name</span> (
+    id                int,
+    dtDontQuery       string,
+    name              string
+) partitioned <span style=color:#66d9ef>by</span> (date string)
+</code></pre></div><p>Now your users will still query on &ldquo;<code>where date = '...'</code>&rdquo; but the second column <code>dtDontQuery</code> will hold the original
+values.</p>
 </div>
 </div>
 <footer class="black-background static-bottom" style=padding:30px>

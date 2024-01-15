@@ -6,7 +6,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=description content>
 <meta name=author content>
-<title>Hive Concepts</title>
+<title>Hive Intro</title>
 <link rel=icon href=/images/hive.svg sizes=any type=image/svg+xml>
 <link rel=stylesheet href=https://qubitpi.github.io/hive-site/css/hive-theme.css>
 <link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css>
@@ -47,7 +47,13 @@ Release
 Documentation
 </a>
 <ul class=dropdown-menu aria-labelledby=navbarDropdown>
-<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/hive-intro/>Introduction</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/intro/>Introduction</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/developement/gettingstarted/>Getting Started</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/concepts/>Concepts</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/programming/>Programming</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/data-formats/>Data Formats</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/best-practices/>Best Practices</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/bi/>BI</a></li>
 <li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/javadocs/>Javadocs</a></li>
 <li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/LanguageManual>Language Manual</a></li>
 <li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/>Wiki</a></li>
@@ -113,61 +119,166 @@ ASF
 </header>
 <div class=content>
 <div class=docs>
+<h2 id=what-is-hive>What is Hive?</h2>
+<p>Apache Hive is an application that abstracts Hadoop data so that it can be accessed using an SQL-like language called
+HiveQL. Using HiveQL, you can use a familiar procedural language to query large amounts of data on the grid as if you
+were working with a relational database.</p>
+<p>Hive offers a broad range of SQL semantics and integrates with both ODBC and JDBC interfaces, making it ideal for
+analyzing data.</p>
+<h2 id=why-hive>Why Hive?</h2>
+<p>Hive is one of the fastest growing products for many reasons:</p>
 <ul>
-<li>TOC
-{:toc}</li>
+<li><strong>Battle-Tested Standard</strong> - Hive is the SQL standard for Hadoop that has been around for many years.</li>
+<li><strong>Single Solution</strong> - Hive works across a broad spectrum of data volumes and allows you to load, store, read, analyze,
+and combine data.</li>
+<li><strong>Interoperability</strong> - HCatalog is a metastore that is part of Hive project. It allows Hive to work with Pig and
+HBase. Hive is also one of the few SQL solutions on Hadoop that has been widely certified by business intelligence
+(BI) vendors (10+ major vendors and growing).</li>
+<li><strong>Strong Support</strong> - Hive is a top-level project (TLP) with the Apache Software Foundation (ASF). The Hive community
+is comprised of top-notch engineers and architects from well-known IT companies.</li>
+<li><strong>Improving Performance</strong> - With each release, Hive&rsquo;s performance improves and is closing the gap with Pig. This
+performance increase is due to the changes in Hive and the underlying execution engine that Hive 0.13 and 0.14 run
+on Tez. There is even more reason to be optimistic for improved performance due to the
+<a href=http://hortonworks.com/labs/stinger/>Stinger initiative</a>, which is a broad, community-based effort to improve
+future versions of Hive.</li>
 </ul>
-<h2 id=hive-data-model>Hive Data Model</h2>
-<p>Data in Hive is organized into:</p>
+<h2 id=accessing-hive>Accessing Hive</h2>
+<p>The diagram shows how a query made from the Hive CLI is transmitted to Hive, where it is translated into a MapReduce job
+that is run by Hadoop. Client applications use the ODBC/JDBC drivers to communicate with HiveServer2 to relay queries
+that like the queries from the CLI are converted into a MapReduce job that is executed on Hadoop.</p>
+<p><img src=../../images/accessing_hive_services.png alt="Accessing Hive Diagram"></p>
+<h2 id=hive-vs-pig>Hive vs. Pig</h2>
+<p>The table below shows the difference between Hive and Pig, highlighting when and where each should be used, respective
+features, and available support.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Hive</th>
+<th>Pig</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Where to Use</td>
+<td>Ad-hoc analytics and reporting</td>
+<td>ETL and pipeline data processing</td>
+</tr>
+<tr>
+<td>Language</td>
+<td>SQL (declarative)</td>
+<td>PigLatin (procedural)</td>
+</tr>
+<tr>
+<td>Schema/Types</td>
+<td>Mandatory (implicit)</td>
+<td>Optional (explicit)</td>
+</tr>
+<tr>
+<td>Partitions</td>
+<td>Yes</td>
+<td>No, partition pruning with HCatalog</td>
+</tr>
+<tr>
+<td>Complex Processing</td>
+<td>Not a good fit for complex processing</td>
+<td>Well suited where multi-query works with thousands of lines of Pig script</td>
+</tr>
+<tr>
+<td>Client/Server</td>
+<td>Requires metastore server (HCatalog) and data registered with it</td>
+<td>Client only. Works with HCatalog metastore</td>
+</tr>
+<tr>
+<td>ODBC/JDBC</td>
+<td>Yes, through HiveServer2</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Tez Support</td>
+<td>Present and stable from Hive 0.13</td>
+<td>Tez support under development (Pig 0.14)</td>
+</tr>
+<tr>
+<td>ORC/Vectorization</td>
+<td>ORC and vectorization available</td>
+<td>ORC available with Pig 0.14, no vectorization yet</td>
+</tr>
+<tr>
+<td>Transactions</td>
+<td>Yes (coming soon)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Cost-Based Optimization</td>
+<td>Yes (coming soon)</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<h2 id=when-to-use-hive-vs-hbase>When to Use Hive vs. HBase</h2>
+<p>While it is reasonable to compare Pig and Hive, HBase and Hive serve very different purposes in the Hadoop ecosystem.
+The table below highlights the differences and when you would consider using each.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Hive</th>
+<th>HBase</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Where to Use</td>
+<td>- Data warehousing and analytics on top of Hadoop/HDFS- - Does not fit frequent and/or record-level updates (although support is getting added for ACID transactions)- Query and analyze large volumes of data</td>
+<td>- Distributed key-value store for persistence and random access on HDFS- Build to support ten&rsquo;s of thousands of reads/ writes per second at record level- Store and access values using keys</td>
+</tr>
+<tr>
+<td>Access</td>
+<td>Primarily through Hive SQL</td>
+<td>Java and REST APIs</td>
+</tr>
+<tr>
+<td>SQL</td>
+<td>Getting close to SQL standards</td>
+<td>Through Hive or Phoenix (SQL Skin on HBase) (not supported)</td>
+</tr>
+<tr>
+<td>Integration</td>
+<td>- Integrated with Pig through HCatalog- Integrated with Oozie through support for Hive action and HCatalog partition notifications</td>
+<td>- Integrated with Hive for SQL support- Integrated with Pig (HBaseStorage) and Oozie (credential support)</td>
+</tr>
+</tbody>
+</table>
+<h2 id=data-model>Data Model</h2>
+<p>Hive data is organized into databases, tables, partitions, and buckets. Those familiar with SQL will be familiar with
+databases that use a namespace to organize a group of tables and tables that have a schema defining column data.
+Partitions allow you to create virtual columns based on keys that determine how data is stored. Users can identify rows
+of data with partitions to run queries on instead of running the queries across an entire data set. Buckets allow you to
+split partitions, allowing even more focused queries Skewed tables, like partitions, allow you to focus queries on a
+subset of the data set by splitting the data into separate files so that certain files can be skipped when executing a
+query.</p>
+<p>The diagram below gives the general hierarchy of the data model and a general characteristic of each level. See
+<a href=https://cwiki.apache.org/confluence/display/Hive/Tutorial#Tutorial-DataUnits>Data Units</a> for more detailed
+information.</p>
+<p><img src=../../images/data_model.png alt="Data Model in Hive"></p>
+<h2 id=hive-and-hcatalog>Hive and HCatalog</h2>
+<p><a href=https://cwiki.apache.org/confluence/display/Hive/HCatalog>HCatalog</a>, part of Hive project, is the central metastore
+for facilitating interoperability among various Hadoop tools. It not only acts as the table and storage management
+layer, so Pig, MapReduce, and Hive can share data, but also presents a relational view of the data in HDFS, abstracts
+where or in what format data is stored, and enables notifications of data availability.</p>
+<p><img src=../../images/hive_hcatalog.png alt="Hive and HCatalog"></p>
+<h2 id=hiveserver2>HiveServer2</h2>
+<p><a href=https://cwiki.apache.org/confluence/display/Hive/Setting%20Up%20HiveServer2#SettingUpHiveServer2-HiveServer2>HiveServer2</a>
+is the JDBC/ODBC endpoint that Hive clients can use to communicate with Hive.</p>
+<p>It supports the following:</p>
 <ul>
-<li><strong>Tables</strong> - These are analogous to Tables in Relational Databases. Tables can be filtered, projected, joined and
-unioned. Additionally <strong>all the data of a table is stored in a directory in HDFS</strong>. Hive also supports the notion of
-external tables wherein a table can be created on prexisting files or directories in HDFS by providing the appropriate
-location to the table creation DDL. The rows in a table are organized into typed columns similar to Relational
-Databases.</li>
-<li><strong>Partitions</strong> - Each Table can have one or more partition keys which determine how the data is stored, for example a
-table <code>T</code> with a date partition column <code>ds</code> had files with data for a particular date stored in the
-<code>&lt;table location>/ds=&lt;date></code> <strong>directory</strong> in HDFS. Partitions allow the system to prune data to be inspected based on
-query predicates, for example a query that is interested in rows from <code>T</code> that satisfy the predicate
-<code>T.ds = '2008-09-01'</code> would only have to look at files in <code>&lt;table location>/ds=2008-09-01/</code> directory in HDFS.</li>
-<li><strong>Buckets</strong> - Data in each partition may in turn be divided into Buckets based on the hash of a column in the table.
-Each bucket is stored as a <strong>file</strong> in the partition directory. Bucketing allows the system to efficiently evaluate
-queries that depend on a sample of data (these are queries that use the <code>SAMPLE</code> clause on the table).</li>
+<li>concurrent clients</li>
+<li>secure clusters and encryption</li>
+<li>user/global/session configuration</li>
+<li>DoAs support allowing Hive queries to run as the requester</li>
 </ul>
-<h2 id=partition>Partition</h2>
-<p>Each Table can have one or more partition Keys which determines how the data is stored. Partitions - apart from being
-storage units - also allow the user to efficiently identify the rows that satisfy a specified criteria; for example, a
-date_partition of type STRING and country_partition of type STRING. Each unique value of the partition keys defines a
-partition of the Table. For example, all &ldquo;US&rdquo; data from &ldquo;2009-12-23&rdquo; is a partition of the page_views table. Therefore,
-if you run analysis on only the &ldquo;US&rdquo; data for 2009-12-23, you can run that query only on the relevant partition of the
-table, thereby speeding up the analysis significantly. Note however, that just because a partition is named 2009-12-23
-does not mean that it contains all or only data from that date; partitions are named after dates for convenience; it is
-the user&rsquo;s job to guarantee the relationship between partition name and data content! Partition columns are virtual
-columns, they are not part of the data itself but are derived on load.</p>
-<h3 id=how-to-partitioned-tables>How to Partitioned Tables</h3>
-<p>Partitioned tables can be created using the <code>PARTITIONED BY</code> clause. A table can have one or more partition columns and
-a separate data directory is created for each distinct value combination in the partition columns. Further, tables or
-partitions can be bucketed using <code>CLUSTERED BY</code> columns, and data can be sorted within that bucket via <code>SORT BY</code>
-columns. This can improve performance on certain kinds of queries.</p>
-<p>If, when creating a partitioned table, you get this error: &ldquo;FAILED: Error in semantic analysis: Column repeated in
-partitioning columns,&rdquo; it means you are trying to include the partitioned column in the data of the table itself. You
-probably really do have the column defined. However, the partition you create makes a pseudo-column on which you can
-query, so you must rename your table column to something else (that users should not query on!).</p>
-<p>For example, suppose your original unpartitioned table had three columns: id, date, and name:</p>
-<pre><code>id     int,
-date   date,
-name   varchar
-</code></pre>
-<p>Now you want to partition on date. Your Hive definition could use &ldquo;dtDontQuery&rdquo; as a column name so that &ldquo;date&rdquo; can be
-used for partitioning (and querying).</p>
-<pre><code>create table table_name (
-    id                int,
-    dtDontQuery       string,
-    name              string
-) partitioned by (date string)
-</code></pre>
-<p>Now your users will still query on &ldquo;<code>where date = '...'</code>&rdquo; but the second column <code>dtDontQuery</code> will hold the original
-values.</p>
+<p><img src=../../images/hiveserver2.png alt=HiveServer2></p>
 </div>
 </div>
 <footer class="black-background static-bottom" style=padding:30px>

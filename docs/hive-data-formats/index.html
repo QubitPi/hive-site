@@ -47,7 +47,13 @@ Release
 Documentation
 </a>
 <ul class=dropdown-menu aria-labelledby=navbarDropdown>
-<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/hive-intro/>Introduction</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/intro/>Introduction</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/developement/gettingstarted/>Getting Started</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/concepts/>Concepts</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/programming/>Programming</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/data-formats/>Data Formats</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/best-practices/>Best Practices</a></li>
+<li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/bi/>BI</a></li>
 <li><a class=dropdown-item href=https://qubitpi.github.io/hive-site/docs/javadocs/>Javadocs</a></li>
 <li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/LanguageManual>Language Manual</a></li>
 <li><a class=dropdown-item href=https://cwiki.apache.org/confluence/display/Hive/>Wiki</a></li>
@@ -113,10 +119,6 @@ ASF
 </header>
 <div class=content>
 <div class=docs>
-<ul>
-<li>TOC
-{:toc}</li>
-</ul>
 <h2 id=supported-file-formats>Supported File Formats</h2>
 <p>The following are the some file formats supported:</p>
 <ul>
@@ -206,7 +208,7 @@ efficiently read data from HDFS.</p>
 <p>At the end of the ORC file is a postscript holding compression parameters and the size of the compressed footer.</p>
 <p>The following diagram shows the basic structure. See the description of the <strong>index</strong>, <strong>row data</strong>, and <strong>footer</strong>
 below the diagram.</p>
-<p>![ORC File Layout]({{ &ldquo;/assets/img/orc_file_layout.png&rdquo; | relative_url}})</p>
+<p><img src=../../images/orc_file_layout.png alt="BI on the Grid"></p>
 <ul>
 <li><strong>index</strong> - includes the minimum and maximum values for each column and the row positions within each column. (A bit
 field or bloom filter could also be included.) The index entries provide offsets that enable seeking to the right
@@ -220,28 +222,25 @@ find the requested column&rsquo;s data streams and adjacent stream reads are mer
 </ul>
 <h3 id=how-to-use-orc>How to Use ORC</h3>
 <p>To set the default file format as ORCFile, use the <code>SET</code> command:</p>
-<pre><code>SET hive.default.fileformat   = orc
-SET hive.exec.orc.memory.pool = 0.50 (ORC writer is allowed 50% of JVM heap size by default)
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>SET</span> hive.<span style=color:#66d9ef>default</span>.fileformat   <span style=color:#f92672>=</span> orc
+<span style=color:#66d9ef>SET</span> hive.<span style=color:#66d9ef>exec</span>.orc.memory.pool <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>.<span style=color:#ae81ff>50</span> (ORC writer <span style=color:#66d9ef>is</span> allowed <span style=color:#ae81ff>50</span><span style=color:#f92672>%</span> <span style=color:#66d9ef>of</span> JVM heap <span style=color:#66d9ef>size</span> <span style=color:#66d9ef>by</span> <span style=color:#66d9ef>default</span>)
 
-ROW FORMAT SERDE 'org.apache.hadoop.hive.ql.io.orc.OrcSerde'
-INPUTFORMAT      'org.apache.hadoop.hive.ql.io.orc.OrcInputFormat' 
-OUTPUTFORMAT     'org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat';
-</code></pre>
-<p>You can also specity that Hive store data as an ORC file when creating a table:</p>
-<pre><code>CREATE TABLE addresses ( 
-name 	string, 
-street 	string, 
-city 	string, 
-state 	string, 
-zip 	int 
+<span style=color:#66d9ef>ROW</span> FORMAT SERDE <span style=color:#e6db74>&#39;org.apache.hadoop.hive.ql.io.orc.OrcSerde&#39;</span>
+INPUTFORMAT      <span style=color:#e6db74>&#39;org.apache.hadoop.hive.ql.io.orc.OrcInputFormat&#39;</span> 
+OUTPUTFORMAT     <span style=color:#e6db74>&#39;org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat&#39;</span>;
+</code></pre></div><p>You can also specity that Hive store data as an ORC file when creating a table:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>TABLE</span> addresses ( 
+    name 	string, 
+    street 	string, 
+    city 	string, 
+    <span style=color:#66d9ef>state</span> 	string, 
+    zip 	int 
 ) 
-STORED AS orc TBLPROPERTIES (&quot;orc.compress&quot;= &quot;ZLIB&quot;);
-LOCATION '/users/sumeetsi/orcfile';
-</code></pre>
-<p>Or, alter a table so that it uses ORCFile:</p>
-<pre><code>ALTER TABLE ... [PARTITION partition_spec] SET FILEFORMAT orc
-</code></pre>
-<h3 id=orc-file-configurations>ORC File Configurations</h3>
+STORED <span style=color:#66d9ef>AS</span> orc TBLPROPERTIES (<span style=color:#e6db74>&#34;orc.compress&#34;</span><span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;ZLIB&#34;</span>);
+<span style=color:#66d9ef>LOCATION</span> <span style=color:#e6db74>&#39;/users/sumeetsi/orcfile&#39;</span>;
+</code></pre></div><p>Or, alter a table so that it uses ORCFile:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>ALTER</span> <span style=color:#66d9ef>TABLE</span> ... [PARTITION partition_spec] <span style=color:#66d9ef>SET</span> FILEFORMAT orc
+</code></pre></div><h3 id=orc-file-configurations>ORC File Configurations</h3>
 <p>There are a number of configurations that you can set in <code>TBLEPROPERTIES</code>. The table below lists the keys,
 the defaults, and a short description.</p>
 <table>
@@ -282,14 +281,14 @@ the defaults, and a short description.</p>
 </table>
 <p>To set a ORC File configuration, you use <code>TBLPROPERTIES</code> when creating or altering a table as shown below, which sets
 the compression format to <code>bzip2</code>.</p>
-<pre><code>create table Addresses (
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>create</span> <span style=color:#66d9ef>table</span> Addresses (
     name string,
     street string,
     city string,
-    state string,
+    <span style=color:#66d9ef>state</span> string,
     zip int
-) stored as orc tblproperties (&quot;orc.compress&quot;=&quot;bzip2&quot;);
-</code></pre>
+) stored <span style=color:#66d9ef>as</span> orc tblproperties (<span style=color:#e6db74>&#34;orc.compress&#34;</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;bzip2&#34;</span>);
+</code></pre></div>
 </div>
 </div>
 <footer class="black-background static-bottom" style=padding:30px>
